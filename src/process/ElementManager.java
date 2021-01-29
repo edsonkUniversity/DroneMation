@@ -12,13 +12,13 @@ public class ElementManager {
 	public void moveRightDrone(Map map) {
 		
 		if (map.getDrone().getColumn() < 5) {
-			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getLine()+1);
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getColumn()+1);
 		}
 	}
 	
 	public void moveLeftDrone(Map map) {
 		if (map.getDrone().getColumn() < -1) {
-			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getLine()-1);
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getColumn()-1);
 		}
 		
 	}

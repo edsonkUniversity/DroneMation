@@ -12,10 +12,10 @@ public class Zone {
 	private int line;
 	private File img;
 	
-	public Zone(int column,int line) {
+	public Zone(int column,int line,File img) {
 		this.column=column;
 		this.line=line;
-		
+		this.img=img;	
 	}
 	
 	public int getColumn() {

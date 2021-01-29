@@ -1,5 +1,7 @@
 package data;
 
+import java.io.File;
+
 public class Drone {
 	private String name;
 	private int line;
@@ -16,6 +18,18 @@ public class Drone {
 
 	public Drone(String name) {
 		this.name=name;
+		this.line = 0;
+		this.column = 0;
+		Zone[][] zonesForDroneVision=new Zone[1][1];
+		for(int i=0; i<1; i++) {
+			for(int j=0; j<1; j++) {
+				File image=new File("src/img/segment/"+i+"-"+j+".png");
+				Zone temp = new Zone(i,j,image);
+				zonesForDroneVision[i][j]=temp;
+			}
+		}
+		
+		this.vision=zonesForDroneVision;
 	}
 	
 	public void setPosition(int line, int column) {

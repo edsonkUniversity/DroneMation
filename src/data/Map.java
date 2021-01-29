@@ -1,13 +1,14 @@
 package data;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.text.Position;
 
 public class Map {
 	
-	private Zone[][] zones;
+	private Zone[][] zones =new Zone[1][1];
 	private String name;
 	private Drone drone;
 	
@@ -15,14 +16,13 @@ public class Map {
 		this.zones = zones;
 		this.name = name;
 		this.drone=drone;
-		initZone();
 	}
 
-	public Zone[][] getPositions() {
+	public Zone[][] getZones() {
 		return zones;
 	}
 
-	public void setPositions(Zone[][] zones) {
+	public void setZones(Zone[][] zones) {
 		this.zones = zones;
 	}
 
@@ -38,18 +38,15 @@ public class Map {
 	public Drone getDrone() {
 		return drone;
 	}
+	
+
 
 	public void setDrone(Drone drone) {
 		this.drone = drone;
 	}
+	
 
-	public void initZone() {
-		for(int i=0; i<5; i++) {
-			for(int j=0; j<5; j++) {
-				Zone temp = new Zone(i,j);
-				temp.setImg(new File("src/img/segment/"+i+"-"+j+".png"));
-				zones[i][j]=temp;
-			}
-		}
-	}
+
+	
+	
 }

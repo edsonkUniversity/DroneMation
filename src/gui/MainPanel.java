@@ -25,11 +25,8 @@ public class MainPanel extends JFrame implements Runnable {
 	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH,GuiData.WINDOW_HEIGHT);
 	public MainPanel (String title) {
 		super(title);
-		initialDroneVision = new Zone[1][1];
-		initialDroneVision[0][0]=new Zone(0, 0); //il faut ajouter l' image pour chage zone ^
-		initialDroneVision[0][1]=new Zone(0, 1);
-		initialDroneVision[1][0]=new Zone(1, 0);
-		initialDroneVision[1][1]=new Zone(1, 1);
+		
+		
 		Drone drone=new Drone("Le Drone",0,0,initialDroneVision);
 		map=new Map("Carte Test",drone);
 		init();
