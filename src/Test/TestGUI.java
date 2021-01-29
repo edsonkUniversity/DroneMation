@@ -2,13 +2,13 @@ package Test;
 
 import javax.swing.JFrame;
 
-import GUI.MainPanel;
+import gui.MainPanel;
 
 public class TestGUI {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JFrame testGui =	new MainPanel("Dronemation");
+		JFrame testGui = new MainPanel("Dronemation");
 	}
 
 }
