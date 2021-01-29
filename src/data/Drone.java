@@ -4,12 +4,14 @@ public class Drone {
 	private String name;
 	private int line;
 	private int column;
+	private Zone[][] vision;
 	
-	public Drone(String name, int line, int column) {
+	public Drone(String name, int line, int column, Zone[][] vision) {
 		super();
 		this.name = name;
 		this.line = line;
 		this.column = column;
+		this.vision=vision;
 	}
 
 	public Drone(String name) {
@@ -44,5 +46,15 @@ public class Drone {
 	public void setColumn(int column) {
 		this.column = column;
 	}
+
+	public Zone[][] getVision() {
+		return vision;
+	}
+
+	public void setVision(Zone[][] vision) {
+		this.vision = vision;
+	}
+	
+	
 	
 }
