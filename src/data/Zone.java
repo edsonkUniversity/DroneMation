@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 public class Zone {
 	private int column;
 	private int line;
-	private File file = new File("C:/.../image.png");
+	private File file;
 	
 	public Zone(int column,int line) {
 		this.column=column;
