@@ -29,4 +29,9 @@ public class Zone {
 		this.line = line;
 	}
 	
+	public void setPosition(int line, int column) {
+		this.line = line;
+		this.column = column;
+	}
+	
 }
