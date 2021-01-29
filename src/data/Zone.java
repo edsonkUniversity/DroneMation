@@ -1,5 +1,6 @@
 package data;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -13,7 +14,9 @@ public class Zone {
 	
 	public Zone(int column,int line) {
 		this.column=column;
-		this.line=line;	
+		this.line=line;
+		
+		
 	}
 	
 	public int getColumn() {
