@@ -45,7 +45,12 @@ public class MainPanel extends JFrame implements Runnable {
 	}
 
 	public void run() {
-		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(10000);
+		}catch( InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+		
 
 	}
 	private class KeyControls implements KeyListener {
@@ -56,16 +61,16 @@ public class MainPanel extends JFrame implements Runnable {
 			switch (keyChar) {
 
 			case 'z':
-
+				manager.moveForwardDrone();
 				break;
 			case 's':
-
+				manager.moveDownwardDrone();
 				break;
 			case 'd':
-
+				manager.moveRightDrone();
 				break;
 			case 'q':
-
+				manager.moveLeftDrone();
 				break;
 			default:
 				break;
