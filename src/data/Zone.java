@@ -16,7 +16,6 @@ public class Zone {
 		this.column=column;
 		this.line=line;
 		
-		
 	}
 	
 	public int getColumn() {
@@ -36,5 +35,7 @@ public class Zone {
 		this.line = line;
 		this.column = column;
 	}
-	
+	public void setImg(File file) {
+		this.file=file;
+	}
 }
