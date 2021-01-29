@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import config.GuiData;
+//import config.GuiData;
 import data.Drone;
 import data.Map;
 import data.Zone;
@@ -22,7 +22,7 @@ public class MainPanel extends JFrame implements Runnable {
 	private ElementManager elementManager;
 	private Boolean play =true;
 	private GuiMap dashboard;
-	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH,GuiData.WINDOW_HEIGHT);
+//	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH,GuiData.WINDOW_HEIGHT);
 	public MainPanel (String title) {
 		super(title);
 		initialDroneVision = new Zone[1][1];
@@ -46,7 +46,7 @@ public class MainPanel extends JFrame implements Runnable {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
-		setPreferredSize(preferredSize);
+	//	setPreferredSize(preferredSize);
 		setResizable(false);
 
 	}
