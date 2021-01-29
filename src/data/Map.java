@@ -34,7 +34,7 @@ public class Map {
 	public void initZone() {
 		for(int i=0; i<5; i++) {
 			for(int j=0; j<5; j++) {
-				zones[i][j].setImg(new File("img/segment/"+i+"-"+j));
+				zones[i][j].setImg(new File("img/segment/"+i+"-"+j+".png"));
 			}
 		}
 	}
