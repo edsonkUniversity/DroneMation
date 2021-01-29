@@ -57,4 +57,8 @@ public class Drone {
 	
 	
 	
+	public String toString() {
+		 return "[line=" + line + ", column=" + column + "]";
+	}
+	
 }
