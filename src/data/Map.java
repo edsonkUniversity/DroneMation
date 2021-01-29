@@ -6,22 +6,20 @@ import javax.swing.text.Position;
 
 public class Map {
 	
-	private HashMap<Object, Position> position;
+	private Zone[][] zones;
 	private String name;
 	
-	
-
-	public Map(HashMap<Object, Position> position, String name) {
-		this.position = position;
+	public Map(Zone[][] zones, String name) {
+		this.zones = zones;
 		this.name = name;
 	}
 
-	public HashMap<Object, Position> getPosition() {
-		return position;
+	public Zone[][] getPositions() {
+		return zones;
 	}
 
-	public void setPosition(HashMap<Object, Position> position) {
-		this.position = position;
+	public void setPositions(Zone[][] zones) {
+		this.zones = zones;
 	}
 
 	public String getName() {
