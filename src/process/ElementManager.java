@@ -4,43 +4,39 @@ import data.*;
 
 public class ElementManager {	 
 	
-	private Zone zone;
-	private Map map;
+	public ElementManager() {
 	
-	public ElementManager(Map map) {
-		this.map = map;
 	}
 	
-	public void set(Zone zone) {
-		this.zone = zone;
-	}
 	
-	public void moveRightDrone() {
-
-		if (zone.getColumn() < 5) {
-			zone.setPosition(zone.getLine(), zone.getColumn()+1);
+	public void moveRightDrone(Map map) {
+		
+		if (map.getDrone().getColumn() < 5) {
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getLine()+1);
 		}
 	}
 	
-	public void moveLeftDrone() {
+	public void moveLeftDrone(Map map) {
+		if (map.getDrone().getColumn() < -1) {
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getLine()-1);
+		}
+		
+	}
+	
+	/*
+	public void moveForwardDrone(Map map) {
 
-		if (zone.getColumn() < -1) { 
-			zone.setPosition(zone.getLine(), zone.getColumn()-1);
+		if (map.getDrone().getLine()() < 5) {
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getLine()+1);
 		}
 	}
 	
-	public void moveForwardDrone() {
+	public void moveDownwardDrone(Map map) {
 
-		if (zone.getLine() < -1) { 
-			zone.setPosition(zone.getLine()+1, zone.getColumn());
+		if (map.getDrone().getColumn() < 5) {
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getLine()+1);
 		}
 	}
-	
-	public void moveDownwardDrone() {
-
-		if (zone.getLine() < 5) { 
-			zone.setPosition(zone.getLine()-300, zone.getColumn()+1);
-		}
-	}
+	*/
 	
 }

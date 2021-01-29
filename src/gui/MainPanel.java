@@ -9,7 +9,9 @@ import javax.swing.JTextField;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import config.GuiData;
+import data.Drone;
 import data.Map;
+import data.Zone;
 import process.ElementManager;
 
 
@@ -17,11 +19,21 @@ import process.ElementManager;
 
 public class MainPanel extends JFrame implements Runnable {
 	private Map map;
-	private ElementManager manager;
+	private Zone[][] initialDroneVision;
+	private static final long serialVersionUID = 1L;
+	private ElementManager elementManager;
+	private Boolean play =true;
 	private GuiMap dashboard;
 	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH,GuiData.WINDOW_HEIGHT);
 	public MainPanel (String title) {
 		super(title);
+		initialDroneVision = new Zone[1][1];
+		initialDroneVision[0][0]=new Zone(0, 0); //il faut ajouter l' image pour chage zone ^
+		initialDroneVision[0][1]=new Zone(0, 1);
+		initialDroneVision[1][0]=new Zone(1, 0);
+		initialDroneVision[1][1]=new Zone(1, 1);
+		Drone drone=new Drone("Le Drone",0,0,initialDroneVision);
+		map=new Map("Carte Test",drone);
 		init();
 	}
 
@@ -29,13 +41,10 @@ public class MainPanel extends JFrame implements Runnable {
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
-
 		KeyControls keyControls = new KeyControls();
 		JTextField textField = new JTextField();
 		textField.addKeyListener(keyControls);
 		contentPane.add(textField, BorderLayout.SOUTH);
-
-
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
@@ -46,8 +55,10 @@ public class MainPanel extends JFrame implements Runnable {
 
 	public void run() {
 		// TODO Auto-generated method stub
-
+		//actualization(map);
 	}
+	
+	
 	private class KeyControls implements KeyListener {
 
 		@Override
@@ -56,16 +67,16 @@ public class MainPanel extends JFrame implements Runnable {
 			switch (keyChar) {
 
 			case 'z':
-
+				//elementManager.moveForwardDrone(map);
 				break;
 			case 's':
-
+				//elementManager.moveDownwardDrone(map);
 				break;
 			case 'd':
-
+				elementManager.moveRightDrone(map);
 				break;
 			case 'q':
-
+				elementManager.moveLeftDrone(map);
 				break;
 			default:
 				break;

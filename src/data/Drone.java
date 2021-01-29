@@ -6,12 +6,12 @@ public class Drone {
 	private int column;
 	private Zone[][] vision;
 	
-	public Drone(String name, int line, int column, Zone[][] vision) {
+	public Drone(String name, int line, int column, Zone[][] visionOfStart) {
 		super();
 		this.name = name;
 		this.line = line;
 		this.column = column;
-		this.vision=vision;
+		this.vision=visionOfStart;
 	}
 
 	public Drone(String name) {

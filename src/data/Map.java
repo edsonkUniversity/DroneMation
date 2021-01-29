@@ -9,10 +9,12 @@ public class Map {
 	
 	private Zone[][] zones;
 	private String name;
+	private Drone drone;
 	
-	public Map(Zone[][] zones, String name) {
+	public Map(String name, Drone drone) {
 		this.zones = zones;
 		this.name = name;
+		this.drone=drone;
 		initZone();
 	}
 
@@ -31,6 +33,16 @@ public class Map {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	public Drone getDrone() {
+		return drone;
+	}
+
+	public void setDrone(Drone drone) {
+		this.drone = drone;
+	}
+
 	public void initZone() {
 		for(int i=0; i<5; i++) {
 			for(int j=0; j<5; j++) {
