@@ -45,4 +45,8 @@ public class Drone {
 		this.column = column;
 	}
 	
+	public String toString() {
+		 return "[line=" + line + ", column=" + column + "]";
+	}
+	
 }
