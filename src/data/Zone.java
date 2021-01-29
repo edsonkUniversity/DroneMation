@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 public class Zone {
 	private int column;
 	private int line;
-	private File file;
+	private File img;
 	
 	public Zone(int column,int line) {
 		this.column=column;
@@ -36,6 +36,11 @@ public class Zone {
 		this.column = column;
 	}
 	public void setImg(File file) {
-		this.file=file;
+		this.img=file;
 	}
+
+	public File getImg() {
+		return img;
+	}
+	
 }

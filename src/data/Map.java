@@ -35,7 +35,7 @@ public class Map {
 		for(int i=0; i<5; i++) {
 			for(int j=0; j<5; j++) {
 				Zone temp = new Zone(i,j);
-				temp.setImg(new File("img/segment/"+i+"-"+j+".png"));
+				temp.setImg(new File("src/img/segment/"+i+"-"+j+".png"));
 				zones[i][j]=temp;
 			}
 		}
