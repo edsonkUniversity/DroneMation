@@ -11,7 +11,7 @@ public class Map {
 	private String name;
 	private Drone drone;
 	
-	public Map(String name, Drone drone) {
+	public Map(String name, Drone drone, Zone[][] zones) {
 		this.zones = zones;
 		this.name = name;
 		this.drone=drone;
@@ -47,7 +47,7 @@ public class Map {
 		for(int i=0; i<5; i++) {
 			for(int j=0; j<5; j++) {
 				Zone temp = new Zone(i,j);
-				temp.setImg(new File("src/img/segment/"+i+"-"+j+".png"));
+				temp.setImg(new File("src/img/segments/"+i+"-"+j+".png"));
 				zones[i][j]=temp;
 			}
 		}

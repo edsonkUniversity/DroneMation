@@ -1,9 +1,10 @@
 package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+
 
 import data.Map;
 import process.ElementManager;
@@ -19,13 +20,19 @@ public class GuiMap extends JPanel {
     public GuiMap(Map map, ElementManager manager) {
         this.map=map;
         this.manager=manager;
+        try {
+            image = ImageIO.read(map.getPositions()[0][0].getImg());
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        
 
     }
     
 
     
-    public void paintMap(Graphics g) {
-        paintComponent(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         //Coordonnées à compléter
         g.drawImage(image, 0, 0, this);
     }

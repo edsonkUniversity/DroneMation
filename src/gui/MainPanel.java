@@ -1,9 +1,12 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,26 +16,26 @@ import data.Map;
 import data.Zone;
 import process.ElementManager;
 
-
-
-
 public class MainPanel extends JFrame implements Runnable {
 	private Map map;
 	private Zone[][] initialDroneVision;
 	private static final long serialVersionUID = 1L;
 	private ElementManager elementManager;
-	private Boolean play =true;
+	private Boolean play = true;
 	private GuiMap dashboard;
-	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH,GuiData.WINDOW_HEIGHT);
-	public MainPanel (String title) {
+	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH, GuiData.WINDOW_HEIGHT);
+
+	public MainPanel(String title) {
 		super(title);
-		initialDroneVision = new Zone[1][1];
-		initialDroneVision[0][0]=new Zone(0, 0); //il faut ajouter l' image pour chage zone ^
-		initialDroneVision[0][1]=new Zone(0, 1);
-		initialDroneVision[1][0]=new Zone(1, 0);
-		initialDroneVision[1][1]=new Zone(1, 1);
-		Drone drone=new Drone("Le Drone",0,0,initialDroneVision);
-		map=new Map("Carte Test",drone);
+		this.setPreferredSize(new Dimension(316, 355));
+
+		initialDroneVision = new Zone[5][5];
+		initialDroneVision[0][0] = new Zone(0, 0); // il faut ajouter l' image pour chage zone ^
+		initialDroneVision[0][1] = new Zone(0, 1);
+		initialDroneVision[1][0] = new Zone(1, 0);
+		initialDroneVision[1][1] = new Zone(1, 1);
+		Drone drone = new Drone("Le Drone", 0, 0, initialDroneVision);
+		map = new Map("Carte Test", drone, initialDroneVision);
 		init();
 	}
 
@@ -45,10 +48,9 @@ public class MainPanel extends JFrame implements Runnable {
 		textField.addKeyListener(keyControls);
 		contentPane.add(textField, BorderLayout.SOUTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		dashboard= new GuiMap(map,elementManager);
-		dashboard.setSize(preferredSize);
+		dashboard = new GuiMap(map, elementManager);
 		contentPane.add(dashboard);
- 		pack();
+		pack();
 		setVisible(true);
 		setPreferredSize(preferredSize);
 		setResizable(false);
@@ -57,10 +59,9 @@ public class MainPanel extends JFrame implements Runnable {
 
 	public void run() {
 		// TODO Auto-generated method stub
-		//actualization(map);
+		// actualization(map);
 	}
-	
-	
+
 	private class KeyControls implements KeyListener {
 
 		@Override
@@ -69,10 +70,10 @@ public class MainPanel extends JFrame implements Runnable {
 			switch (keyChar) {
 
 			case 'z':
-				//elementManager.moveForwardDrone(map);
+				// elementManager.moveForwardDrone(map);
 				break;
 			case 's':
-				//elementManager.moveDownwardDrone(map);
+				// elementManager.moveDownwardDrone(map);
 				break;
 			case 'd':
 				elementManager.moveRightDrone(map);
@@ -83,7 +84,9 @@ public class MainPanel extends JFrame implements Runnable {
 			default:
 				break;
 			}
-		}		@Override
+		}
+
+		@Override
 		public void keyTyped(KeyEvent e) {
 
 		}
