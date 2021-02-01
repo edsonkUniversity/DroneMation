@@ -4,9 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -34,6 +32,7 @@ public class MainPanel extends JFrame implements Runnable {
 		initialDroneVision[0][1] = new Zone(0, 1);
 		initialDroneVision[1][0] = new Zone(1, 0);
 		initialDroneVision[1][1] = new Zone(1, 1);
+		elementManager = new ElementManager();
 		Drone drone = new Drone("Le Drone", 0, 0, initialDroneVision);
 		map = new Map("Carte Test", drone, initialDroneVision);
 		init();
@@ -70,10 +69,10 @@ public class MainPanel extends JFrame implements Runnable {
 			switch (keyChar) {
 
 			case 'z':
-				// elementManager.moveForwardDrone(map);
+				elementManager.moveForwardDrone(map);
 				break;
 			case 's':
-				// elementManager.moveDownwardDrone(map);
+				elementManager.moveDownwardDrone(map);
 				break;
 			case 'd':
 				elementManager.moveRightDrone(map);
