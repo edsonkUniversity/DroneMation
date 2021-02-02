@@ -23,7 +23,7 @@ public class ElementManager {
 		int newDroneLine = drone.getLine();
 		int newDroneColumn = drone.getColumn() - 1;
 
-		if (map.getDrone().getColumn() < -1) {
+		if (map.getDrone().getColumn() >= 0) {
 			map.getDrone().setPosition(newDroneLine, newDroneColumn);
 		}
 	}
@@ -34,7 +34,7 @@ public class ElementManager {
 		int newDroneLine = drone.getLine() - 1;
 		int newDroneColumn = drone.getColumn();
 
-		if (map.getDrone().getLine() < -1) {
+		if (map.getDrone().getLine() >= 0) {
 			map.getDrone().setPosition(newDroneLine, newDroneColumn);
 		}
 	}
