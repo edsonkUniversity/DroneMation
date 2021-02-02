@@ -6,6 +6,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import config.GuiData;
@@ -19,7 +20,6 @@ public class MainPanel extends JFrame implements Runnable {
 	private Zone[][] initialDroneVision;
 	private static final long serialVersionUID = 1L;
 	private ElementManager elementManager;
-	private Boolean play = true;
 	private GuiMap dashboard;
 	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH, GuiData.WINDOW_HEIGHT);
 
@@ -28,14 +28,11 @@ public class MainPanel extends JFrame implements Runnable {
 		this.setPreferredSize(new Dimension(316, 355));
 
 		initialDroneVision = new Zone[5][5];
-		initialDroneVision[0][0] = new Zone(0, 0); // il faut ajouter l' image pour chage zone ^
-		initialDroneVision[0][1] = new Zone(0, 1);
-		initialDroneVision[1][0] = new Zone(1, 0);
-		initialDroneVision[1][1] = new Zone(1, 1);
 		elementManager = new ElementManager();
 		Drone drone = new Drone("Le Drone", 0, 0, initialDroneVision);
 		map = new Map("Carte Test", drone, initialDroneVision);
 		init();
+		run();
 	}
 
 	private void init() {
@@ -59,6 +56,16 @@ public class MainPanel extends JFrame implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		// actualization(map);
+		while (true) {
+			try {
+				System.out.println(map.getDrone().toString());
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
+
+			dashboard.repaint();
+		}
 	}
 
 	private class KeyControls implements KeyListener {

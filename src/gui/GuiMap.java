@@ -5,35 +5,27 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-
 import data.Map;
+import data.Zone;
 import process.ElementManager;
 
 public class GuiMap extends JPanel {
-    
-    private BufferedImage image;
-    
-    private Map map;
-    private ElementManager manager;
-    
-    
-    public GuiMap(Map map, ElementManager manager) {
-        this.map=map;
-        this.manager=manager;
-        try {
-            image = ImageIO.read(map.getPositions()[0][0].getImg());
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-        
 
-    }
-    
+	private Map map;
+	private ElementManager manager;
+	private PaintStrategy paintStrategy = new PaintStrategy();
 
-    
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        //Coordonnées à compléter
-        g.drawImage(image, 0, 0, this);
-    }
+	public GuiMap(Map map, ElementManager manager) {
+		this.map = map;
+		this.manager = manager;
+
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		// Coordonnées à compléter
+
+		paintStrategy.paint(map, g, this);
+	}
+
 }
