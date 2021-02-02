@@ -13,7 +13,7 @@ public class ElementManager {
 		int newDroneLine = drone.getLine();
 		int newDroneColumn = drone.getColumn() + 1;
 
-		if (drone.getColumn() < 5) {
+		if (drone.getColumn() < 4) {
 			drone.setPosition(newDroneLine, newDroneColumn);
 		}
 	}
@@ -44,7 +44,7 @@ public class ElementManager {
 		int newDroneLine = drone.getLine() + 1;
 		int newDroneColumn = drone.getColumn();
 
-		if (drone.getLine() < 5) {
+		if (drone.getLine() < 4) {
 			drone.setPosition(newDroneLine, newDroneColumn);
 		}
 	}

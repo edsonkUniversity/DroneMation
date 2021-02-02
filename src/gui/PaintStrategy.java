@@ -21,15 +21,14 @@ public class PaintStrategy {
 		int droneLine = map.getDrone().getLine();
 		Zone[][] dronePositions = map.getPositions();
 		File droneImg = dronePositions[droneLine][droneColumn].getImg();
-		
-		
+
+
 		try {
 			image = ImageIO.read(droneImg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		g.drawImage(image, 0, 0,panel);
-
+		g.drawImage(image, 0, 0, panel);
 
 	}
 

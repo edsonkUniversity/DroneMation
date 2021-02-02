@@ -58,7 +58,6 @@ public class MainPanel extends JFrame implements Runnable {
 		// actualization(map);
 		while (true) {
 			try {
-				System.out.println(map.getDrone().toString());
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
