@@ -23,8 +23,7 @@ public class Drone {
 		Zone[][] zonesForDroneVision=new Zone[1][1];
 		for(int i=0; i<1; i++) {
 			for(int j=0; j<1; j++) {
-				File image=new File("src/img/segment/"+i+"-"+j+".png");
-				Zone temp = new Zone(i,j,image);
+				Zone temp = new Zone(i,j,"src/img/segment/"+i+"-"+j+".png");
 				zonesForDroneVision[i][j]=temp;
 			}
 		}

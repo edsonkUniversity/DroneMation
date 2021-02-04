@@ -1,9 +1,11 @@
 package gui;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -14,22 +16,28 @@ import data.Map;
 import data.Zone;
 
 public class PaintStrategy {
-	private BufferedImage image;
 
 	public void paint(Map map, Graphics g, JPanel panel) {
 		int droneColumn = map.getDrone().getColumn();
 		int droneLine = map.getDrone().getLine();
 		Zone[][] dronePositions = map.getPositions();
-		File droneImg = dronePositions[droneLine][droneColumn].getImg();
-
-
+		String droneImg = dronePositions[droneLine][droneColumn].getImg();
+		
 		try {
-			image = ImageIO.read(droneImg);
+			g.drawImage(readImage(droneImg), 0, 0, panel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		g.drawImage(image, 0, 0, panel);
 
+	}
+	
+	public static Image readImage(String filePath) {
+		try {
+			return ImageIO.read(new File(filePath));
+		} catch (IOException e) {
+			System.err.println("-- Can not read the image file ! --");
+			return null;
+		}
 	}
 
 }

@@ -4,48 +4,27 @@ import data.*;
 
 public class ElementManager {
 
-	public ElementManager() {
-
-	}
-
-	public void moveRightDrone(Map map) {
-		Drone drone = map.getDrone();
-		int newDroneLine = drone.getLine();
-		int newDroneColumn = drone.getColumn() + 1;
-
-		if (drone.getColumn() < 4) {
-			drone.setPosition(newDroneLine, newDroneColumn);
+	public static void moveRightDrone(Map map) {
+		if (map.getDrone().getColumn() < 3) {
+			map.getDrone().setColumn(map.getDrone().getColumn() + 1);
 		}
 	}
 
-	public void moveLeftDrone(Map map) {
-		Drone drone = map.getDrone();
-		int newDroneLine = drone.getLine();
-		int newDroneColumn = drone.getColumn() - 1;
-
-		if (map.getDrone().getColumn() >= 0) {
-			map.getDrone().setPosition(newDroneLine, newDroneColumn);
+	public static void moveLeftDrone(Map map) {
+		if (map.getDrone().getColumn() > 0) {
+			map.getDrone().setPosition(map.getDrone().getLine(), map.getDrone().getColumn() - 1);
 		}
 	}
 
-	public void moveForwardDrone(Map map) {
-
-		Drone drone = map.getDrone();
-		int newDroneLine = drone.getLine() - 1;
-		int newDroneColumn = drone.getColumn();
-
-		if (map.getDrone().getLine() >= 0) {
-			map.getDrone().setPosition(newDroneLine, newDroneColumn);
+	public static void moveForwardDrone(Map map) {
+		if (map.getDrone().getLine() > 0) {
+			map.getDrone().setLine(map.getDrone().getLine() - 1);
 		}
 	}
 
-	public void moveDownwardDrone(Map map) {
-		Drone drone = map.getDrone();
-		int newDroneLine = drone.getLine() + 1;
-		int newDroneColumn = drone.getColumn();
-
-		if (drone.getLine() < 4) {
-			drone.setPosition(newDroneLine, newDroneColumn);
+	public static void moveDownwardDrone(Map map) {
+		if (map.getDrone().getLine() < 3) {
+			map.getDrone().setLine(map.getDrone().getLine() + 1);
 		}
 	}
 

@@ -25,10 +25,9 @@ public class MainPanel extends JFrame implements Runnable {
 
 	public MainPanel(String title) {
 		super(title);
-		this.setPreferredSize(new Dimension(316, 355));
+		this.setPreferredSize(new Dimension(300, 300));
 
 		initialDroneVision = new Zone[5][5];
-		elementManager = new ElementManager();
 		Drone drone = new Drone("Le Drone", 0, 0, initialDroneVision);
 		map = new Map("Carte Test", drone, initialDroneVision);
 		init();
@@ -58,7 +57,7 @@ public class MainPanel extends JFrame implements Runnable {
 		// actualization(map);
 		while (true) {
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
@@ -75,16 +74,16 @@ public class MainPanel extends JFrame implements Runnable {
 			switch (keyChar) {
 
 			case 'z':
-				elementManager.moveForwardDrone(map);
+				ElementManager.moveForwardDrone(map);
 				break;
 			case 's':
-				elementManager.moveDownwardDrone(map);
+				ElementManager.moveDownwardDrone(map);
 				break;
 			case 'd':
-				elementManager.moveRightDrone(map);
+				ElementManager.moveRightDrone(map);
 				break;
 			case 'q':
-				elementManager.moveLeftDrone(map);
+				ElementManager.moveLeftDrone(map);
 				break;
 			default:
 				break;
