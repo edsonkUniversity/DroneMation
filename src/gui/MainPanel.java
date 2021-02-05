@@ -39,9 +39,9 @@ public class MainPanel extends JFrame implements Runnable {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		KeyControls keyControls = new KeyControls();
-		JTextField textField = new JTextField();
-		textField.addKeyListener(keyControls);
-		contentPane.add(textField, BorderLayout.SOUTH);
+//		JTextField textField = new JTextField();
+		this.addKeyListener(keyControls);
+//		contentPane.add(textField, BorderLayout.SOUTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		dashboard = new GuiMap(map, elementManager);
 		contentPane.add(dashboard);
@@ -70,19 +70,17 @@ public class MainPanel extends JFrame implements Runnable {
 
 		@Override
 		public void keyPressed(KeyEvent event) {
-			char keyChar = event.getKeyChar();
-			switch (keyChar) {
-
-			case 'z':
+			switch (event.getKeyCode()) {
+			case KeyEvent.VK_UP:
 				ElementManager.moveForwardDrone(map);
 				break;
-			case 's':
+			case KeyEvent.VK_DOWN:
 				ElementManager.moveDownwardDrone(map);
 				break;
-			case 'd':
+			case KeyEvent.VK_RIGHT:
 				ElementManager.moveRightDrone(map);
 				break;
-			case 'q':
+			case KeyEvent.VK_LEFT:
 				ElementManager.moveLeftDrone(map);
 				break;
 			default:
