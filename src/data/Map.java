@@ -1,29 +1,28 @@
 package data;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.text.Position;
 
 public class Map {
 	
-	private Zone[][] zones;
+	private int cases[][];
+	private ArrayList<Tree> trees;
+	private ArrayList<Fire> fire;
+	private ArrayList<House> house;
 	private String name;
 	private Drone drone;
 	
-	public Map(String name, Drone drone, Zone[][] zones) {
-		this.zones = zones;
+	
+	public Map(int[][] cases, String name, Drone drone) {
+		this.cases = cases;
 		this.name = name;
-		this.drone=drone;
-		initZone();
-	}
-
-	public Zone[][] getPositions() {
-		return zones;
-	}
-
-	public void setPositions(Zone[][] zones) {
-		this.zones = zones;
+		this.drone = drone;
+		this.trees=new ArrayList<Tree>();
+		this.fire=new ArrayList<Fire>();
+		this.house=new ArrayList<House>();
 	}
 
 	public String getName() {
@@ -43,13 +42,35 @@ public class Map {
 		this.drone = drone;
 	}
 
-	public void initZone() {
-		for(int i=0; i<5; i++) {
-			for(int j=0; j<5; j++) {
-				Zone temp = new Zone(i,j);
-				temp.setImg("src/img/segments/"+i+"-"+j+".png");
-				zones[i][j]=temp;
-			}
-		}
+	public int[][] getCases() {
+		return cases;
+	}
+
+	public void setCases(int[][] cases) {
+		this.cases = cases;
+	}
+
+	public ArrayList<Tree> getTrees() {
+		return trees;
+	}
+
+	public void setTrees(ArrayList<Tree> trees) {
+		this.trees = trees;
+	}
+
+	public ArrayList<Fire> getFire() {
+		return fire;
+	}
+
+	public void setFire(ArrayList<Fire> fire) {
+		this.fire = fire;
+	}
+
+	public ArrayList<House> getHouse() {
+		return house;
+	}
+
+	public void setHouse(ArrayList<House> house) {
+		this.house = house;
 	}
 }

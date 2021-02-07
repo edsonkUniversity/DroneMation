@@ -17,7 +17,7 @@ import process.ElementManager;
 
 public class MainPanel extends JFrame implements Runnable {
 	private Map map;
-	private Zone[][] initialDroneVision;
+	//private Zone[][] initialDroneVision;
 	private static final long serialVersionUID = 1L;
 	private ElementManager elementManager;
 	private GuiMap dashboard;
@@ -27,9 +27,10 @@ public class MainPanel extends JFrame implements Runnable {
 		super(title);
 		this.setPreferredSize(new Dimension(300, 300));
 
-		initialDroneVision = new Zone[5][5];
+		/*initialDroneVision = new Zone[5][5];
 		Drone drone = new Drone("Le Drone", 0, 0, initialDroneVision);
-		map = new Map("Carte Test", drone, initialDroneVision);
+		map = new Map("Carte Test", drone, initialDroneVision);*/
+		
 		init();
 		run();
 	}
@@ -61,7 +62,7 @@ public class MainPanel extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
-
+			
 			dashboard.repaint();
 		}
 	}
