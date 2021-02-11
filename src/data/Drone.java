@@ -2,18 +2,18 @@ package data;
 
 public class Drone extends Element {
 	
-	private Zone[][] vision;
+	private int[][] vision;
 	
 	public Drone(Position position) {
 		super(position);
-		this.vision= new Zone[10][10];
+		this.vision= new int[10][10];
 	}
 
-	public Zone[][] getVision() {
+	public int[][] getVision() {
 		return vision;
 	}
 
-	public void setVision(Zone[][] vision) {
+	public void setVision(int[][] vision) {
 		this.vision = vision;
 	}
 

@@ -18,7 +18,7 @@ public class Map {
 	
 	public Map(int[][] cases, String name, Drone drone) {
 		this.cases = cases;
-		this.name = name;
+		this.name = "Carte";
 		this.drone = drone;
 		this.trees=new ArrayList<Tree>();
 		this.fire=new ArrayList<Fire>();

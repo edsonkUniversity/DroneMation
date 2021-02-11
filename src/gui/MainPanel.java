@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import config.GuiData;
 import data.Drone;
 import data.Map;
-import data.Zone;
 import process.ElementManager;
 
 public class MainPanel extends JFrame implements Runnable {

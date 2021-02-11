@@ -17,6 +17,7 @@ import data.Zone;
 
 public class PaintStrategy {
 
+	/*
 	public void paint(Map map, Graphics g, JPanel panel) {
 		int droneColumn = map.getDrone().getColumn();
 		int droneLine = map.getDrone().getLine();
@@ -39,5 +40,5 @@ public class PaintStrategy {
 			return null;
 		}
 	}
-
+*/
 }

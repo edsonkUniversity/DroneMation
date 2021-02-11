@@ -6,11 +6,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import data.Map;
-import data.Zone;
 import process.ElementManager;
 
 public class GuiMap extends JPanel {
-
+	
 	private Map map;
 	private ElementManager manager;
 	private PaintStrategy paintStrategy = new PaintStrategy();
@@ -20,12 +19,13 @@ public class GuiMap extends JPanel {
 		this.manager = manager;
 
 	}
-
+	/*
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// Coordonnées à compléter
 
 		paintStrategy.paint(map, g, this);
 	}
+	*/
 
 }
