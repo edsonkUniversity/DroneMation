@@ -19,9 +19,14 @@ public class GuiMap extends JPanel {
 		this.manager = manager;
 
 	}
-	// peint the changement of trun on the map 
-	public void repaint(Graphics g) {
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		paintStrategy.paint(map, g);
+		
+		
 	}
+	
+	// peint the changement of trun on the map 
 
 }

@@ -9,7 +9,10 @@ public class Tree extends Element {
 	private boolean isUpTree;
 	private boolean isDownTree;
 
-
+	public Tree(Position position) {
+		super(position, Color.green);
+		// TODO Auto-generated constructor stub
+	}
 
 	public boolean isLeftTree() {
 		return isLeftTree;
@@ -43,10 +46,4 @@ public class Tree extends Element {
 		isDownTree = downTree;
 	}
 
-
-
-	public Tree(Position position) {
-		super(position, Color.green);
-		// TODO Auto-generated constructor stub
-	}	
 }

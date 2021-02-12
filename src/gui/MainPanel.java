@@ -45,7 +45,7 @@ public class MainPanel extends JFrame implements Runnable {
 		MapBuiler newMapBuiler=  new MapBuiler();	
 		map =newMapBuiler.getMap();
 		dashboard= new GuiMap(map);
-		dashboard.repaint(getGraphics());
+	//	dashboard.repaint(getGraphics());
 		dashboard.setPreferredSize(preferredSize);
 		contentPane.add(dashboard, BorderLayout.CENTER);
 		

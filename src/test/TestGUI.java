@@ -28,7 +28,7 @@ public class TestGUI {
 		}
 		 
 		 //Affichage du nombre de chaque element dans la caarte 
-		System.out.println(map.getVisionDrone()[0][0].getPosition());
+		System.out.println(map.getVisionDrone()[1][1]);
 		System.out.println("Number of Fire :"+map.getFires().size());
 		System.out.println("Number of Houses :"+map.getHouses().size());
 		System.out.println("Number of Trees :"+map.getTrees().size());

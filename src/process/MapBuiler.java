@@ -14,7 +14,6 @@ import data.Tree;
 public class MapBuiler {
 	private Element[][] elements = new Element[20][20];
 
-
 	private int[][] freeSquares;
 	private int[][] SquaresWhithCode;
 	private ArrayList<Tree> trees;
@@ -39,6 +38,7 @@ public class MapBuiler {
 	}
 
 	public Map getMap() {
+		initElements();
 		voidInitSuaresTab();
 		generateTrees();
 		generateHouses();
@@ -208,6 +208,18 @@ public class MapBuiler {
 					trees.add(tree);
 					elements[i][j] = tree;
 				}
+			}
+		}
+	}
+	
+	
+	public void initElements() {
+		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES-1; i++) {
+			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES-1; j++) {
+				Position position = new Position(i, j);
+				House h = new House(position);
+				elements[i][j] = h;
+				
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 package data;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 public abstract class Element  {
 		private Position position;
