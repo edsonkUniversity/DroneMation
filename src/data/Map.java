@@ -3,22 +3,22 @@ package data;
 import java.util.ArrayList;
 
 public class Map {
-	
+
 	private int[][] cases;
 	private ArrayList<Tree> trees;
 	private ArrayList<Fire> fires;
 	private ArrayList<House> houses;
 	private String name;
 	private Drone drone;
-	
-	
+	private Element[][] droneVision = new Element[20][20];
+
 	public Map(int[][] cases, String name, Drone drone) {
 		this.cases = cases;
 		this.name = "MAP";
 		this.drone = drone;
-		this.trees=new ArrayList<Tree>();
-		this.fires =new ArrayList<Fire>();
-		this.houses =new ArrayList<House>();
+		this.trees = new ArrayList<Tree>();
+		this.fires = new ArrayList<Fire>();
+		this.houses = new ArrayList<House>();
 	}
 
 	public String getName() {
@@ -28,7 +28,7 @@ public class Map {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Drone getDrone() {
 		return drone;
 	}
@@ -68,4 +68,13 @@ public class Map {
 	public void setHouses(ArrayList<House> houses) {
 		this.houses = houses;
 	}
+
+	public Element[][] visionDrone() {
+		return droneVision;
+	}
+
+	public void setVisionDrone(Element[][] visionDrone) {
+		this.droneVision = visionDrone;
+	}
+
 }
