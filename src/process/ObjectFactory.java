@@ -1,8 +1,5 @@
 package process;
 
-import java.awt.Color;
-
-import config.GuiData;
 import data.Drone;
 import data.Fire;
 import data.House;
@@ -22,16 +19,16 @@ public class ObjectFactory {
 	
 	public Fire createFire(int line,int column) {
 		Position position=new Position(line,column);
-		return new Fire(position, GuiData.FIRE_COLOR); 
+		return new Fire(position);
 	}
 	
 	public Tree createForest(int line,int column) {
 		Position position=new Position(line,column);
-		return new Tree(position, GuiData.TREE_COLOR); 
+		return new Tree(position);
 	}
 	
 	public House createHouse(int line,int column) {
 		Position position=new Position(line,column);
-		return new House(position, GuiData.TREE_COLOR); 
+		return new House(position);
 	}
 }

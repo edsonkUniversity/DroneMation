@@ -1,6 +1,5 @@
 package process;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import config.SimulationParameters;
@@ -30,8 +29,8 @@ public class MapBuiler {
 	 */
 	
 	public MapBuiler() {
-		this.freeSquares =new int[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WHIDTH_SQUARES];
-		this.SquaresWhithCode =new int[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WHIDTH_SQUARES];
+		this.freeSquares =new int[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
+		this.SquaresWhithCode =new int[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
 		this.fire=new ArrayList<Fire>();
 		this.house=new ArrayList<House>();
 		this.trees=new ArrayList<Tree>();
@@ -41,14 +40,14 @@ public class MapBuiler {
 	public Map getMap() {
 		voidInitSuaresTab();
 		generateTrees();
-		generateHauses();
+		generateHouses();
 		generateFire();
 		putTrees();
 		putHouses();
 		putFire();
-		resultMap.setHouse(house);
+		resultMap.setHouses(house);
 		resultMap.setTrees(trees);
-		resultMap.setFire(fire);
+		resultMap.setFires(fire);
 		resultMap.setCases(freeSquares);
 		return resultMap;
 	}
@@ -67,7 +66,7 @@ public class MapBuiler {
 	
 	public void voidInitSuaresTab() {
 		for(int i=0;i<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;i++) {
-			for(int j=0;j<SimulationParameters.NUMBER_OF_WHIDTH_SQUARES;j++) {
+			for(int j = 0; j<SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
 				this.SquaresWhithCode[i][j]=0;
 				this.freeSquares[i][j]=0;
 			}
@@ -138,8 +137,8 @@ public class MapBuiler {
 		int i=0;
 		while(i<4) {
 			int randomHightP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_HEIGHT_SQUARES - 10 + 1) + 10); 
-			int randomWhightP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_WHIDTH_SQUARES - 10 + 1) + 10); 
-			if(randomHightP+10< SimulationParameters.NUMBER_OF_HEIGHT_SQUARES && randomWhightP+10< SimulationParameters.NUMBER_OF_WHIDTH_SQUARES) {
+			int randomWhightP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_WIDTH_SQUARES - 10 + 1) + 10);
+			if(randomHightP+10< SimulationParameters.NUMBER_OF_HEIGHT_SQUARES && randomWhightP+10< SimulationParameters.NUMBER_OF_WIDTH_SQUARES) {
 				if( (randomHightP>1) && (randomWhightP>1)) {
 				SquaresWhithCode[randomHightP][randomWhightP]=5;
 				freeSquares[randomHightP][randomWhightP]=1;
@@ -179,15 +178,15 @@ public class MapBuiler {
 		}
 	}
 	
-	public void  generateHauses() {	
+	public void generateHouses() {
 		int i=0;
 		while(i<20) {
-			int randomHightP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_HEIGHT_SQUARES - 1 + 1) + 1); 
-			int randomWhightP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_WHIDTH_SQUARES - 1 + 1) + 1); 
-			if(randomHightP+10< SimulationParameters.NUMBER_OF_HEIGHT_SQUARES && randomWhightP+10< SimulationParameters.NUMBER_OF_WHIDTH_SQUARES) {
-				if(freeSquares[randomHightP][randomWhightP]==0) {
-					SquaresWhithCode[randomHightP][randomWhightP]=3;
-					freeSquares[randomHightP][randomWhightP]=1;
+			int randomHeightP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_HEIGHT_SQUARES - 1 + 1) + 1);
+			int randomWidthP =(int) (Math.random() * ( SimulationParameters.NUMBER_OF_WIDTH_SQUARES - 1 + 1) + 1);
+			if(randomHeightP+10< SimulationParameters.NUMBER_OF_HEIGHT_SQUARES && randomWidthP+10< SimulationParameters.NUMBER_OF_WIDTH_SQUARES) {
+				if(freeSquares[randomHeightP][randomWidthP]==0) {
+					SquaresWhithCode[randomHeightP][randomWidthP]=3;
+					freeSquares[randomHeightP][randomWidthP]=1;
 					i++;
 				}
 			}
@@ -196,7 +195,7 @@ public class MapBuiler {
 	}
 	public void  generateFire() {	
 		for(int i=0;i<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;i++) {
-			for(int j=0;j<SimulationParameters.NUMBER_OF_WHIDTH_SQUARES;j++) {
+			for(int j = 0; j<SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
 				if(SquaresWhithCode[i][j]==5) {
 					int randomFire =(int) (Math.random() * ( 3 - 1 + 1) + 1);
 					if(randomFire==1) {
@@ -209,10 +208,10 @@ public class MapBuiler {
 	
 	public void  putTrees() {
 		for(int i=0;i<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;i++) {
-			for(int j=0;j<SimulationParameters.NUMBER_OF_WHIDTH_SQUARES;j++) {
+			for(int j = 0; j<SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
 				if(SquaresWhithCode[i][j]==5) {
 					Position position=new Position(i,j);
-					Tree tree=new Tree(position,Color.GREEN);
+					Tree tree=new Tree(position);
 					trees.add(tree);
 				}
 			}
@@ -220,10 +219,10 @@ public class MapBuiler {
 	}
 	public void putHouses() {
 		for(int i=0;i<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;i++) {
-			for(int j=0;j<SimulationParameters.NUMBER_OF_WHIDTH_SQUARES;j++) {
+			for(int j = 0; j<SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
 				if(SquaresWhithCode[i][j]==3) {
 					Position position=new Position(i,j);
-					House h=new House(position,Color.YELLOW);
+					House h=new House(position);
 					house.add(h);
 				}
 			}
@@ -231,10 +230,10 @@ public class MapBuiler {
 	}
 	public void putFire() {
 		for(int i=0;i<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;i++) {
-			for(int j=0;j<SimulationParameters.NUMBER_OF_WHIDTH_SQUARES;j++) {
+			for(int j = 0; j<SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
 				if(SquaresWhithCode[i][j]==2) {
 					Position position=new Position(i,j);
-					Fire f=new Fire(position,Color.RED);
+					Fire f=new Fire(position);
 					fire.add(f);
 				}
 			}

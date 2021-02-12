@@ -1,18 +1,18 @@
 package data;
 
 public class Position {
-	private int ligne;
+	private int line;
 	private int column;
 	
 	public Position(int ligne, int column) {
-		this.ligne = ligne;
+		this.line = ligne;
 		this.column = column;
 	}
-	public int getLigne() {
-		return ligne;
+	public int getLine() {
+		return line;
 	}
-	public void setLigne(int ligne) {
-		this.ligne = ligne;
+	public void setLine(int line) {
+		this.line = line;
 	}
 	public int getColumn() {
 		return column;

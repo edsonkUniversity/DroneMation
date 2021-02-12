@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import data.Drone;
 import data.Map;
-import data.Zone;
 
 public class PaintStrategy {
 

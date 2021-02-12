@@ -1,13 +1,7 @@
 package test;
 
-import javax.swing.JFrame;
-
 import config.SimulationParameters;
-import data.Drone;
-import data.Element;
 import data.Map;
-import data.Position;
-import gui.MainPanel;
 import process.MapBuiler;
 
 public class TestGUI {
@@ -23,7 +17,7 @@ public class TestGUI {
 		Map map=mapBuilder.getMap();
 		int [][] n=map.getCases();
 		for(int i=0;i<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;i++) {
-			for(int j=0;j<SimulationParameters.NUMBER_OF_WHIDTH_SQUARES;j++) {
+			for(int j = 0; j<SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
 				g+=" "+String.valueOf(n[i][j]);
 			}
 			System.out.println(g);
@@ -34,8 +28,8 @@ public class TestGUI {
 		 * Affichage du nombre de chaque element dans
 		 *  la caarte 
 		 */
-		System.out.println("Number of Fire :"+map.getFire().size());
-		System.out.println("Number of Houses :"+map.getHouse().size());
+		System.out.println("Number of Fire :"+map.getFires().size());
+		System.out.println("Number of Houses :"+map.getHouses().size());
 		System.out.println("Number of Trees :"+map.getTrees().size());
 	}
 	

@@ -1,28 +1,24 @@
 package data;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.text.Position;
 
 public class Map {
 	
-	private int cases[][];
+	private int[][] cases;
 	private ArrayList<Tree> trees;
-	private ArrayList<Fire> fire;
-	private ArrayList<House> house;
+	private ArrayList<Fire> fires;
+	private ArrayList<House> houses;
 	private String name;
 	private Drone drone;
 	
 	
 	public Map(int[][] cases, String name, Drone drone) {
 		this.cases = cases;
-		this.name = "Carte";
+		this.name = "MAP";
 		this.drone = drone;
 		this.trees=new ArrayList<Tree>();
-		this.fire=new ArrayList<Fire>();
-		this.house=new ArrayList<House>();
+		this.fires =new ArrayList<Fire>();
+		this.houses =new ArrayList<House>();
 	}
 
 	public String getName() {
@@ -32,7 +28,6 @@ public class Map {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	
 	public Drone getDrone() {
 		return drone;
@@ -58,19 +53,19 @@ public class Map {
 		this.trees = trees;
 	}
 
-	public ArrayList<Fire> getFire() {
-		return fire;
+	public ArrayList<Fire> getFires() {
+		return fires;
 	}
 
-	public void setFire(ArrayList<Fire> fire) {
-		this.fire = fire;
+	public void setFires(ArrayList<Fire> fires) {
+		this.fires = fires;
 	}
 
-	public ArrayList<House> getHouse() {
-		return house;
+	public ArrayList<House> getHouses() {
+		return houses;
 	}
 
-	public void setHouse(ArrayList<House> house) {
-		this.house = house;
+	public void setHouses(ArrayList<House> houses) {
+		this.houses = houses;
 	}
 }
