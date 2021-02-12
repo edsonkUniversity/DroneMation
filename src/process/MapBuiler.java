@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import config.SimulationParameters;
 import data.Drone;
+import data.Element;
 import data.Fire;
 import data.House;
 import data.Map;
@@ -12,6 +13,11 @@ import data.Tree;
 
 
 public class MapBuiler {
+	private Element[][] elements;
+	//For Raphael:
+	public Element[][] getElements() {
+		return elements;
+	}
 	private int[][] freeSquares; 
 	private int[][] SquaresWhithCode;
 	private ArrayList<Tree> trees;
@@ -213,6 +219,7 @@ public class MapBuiler {
 					Position position=new Position(i,j);
 					Tree tree=new Tree(position);
 					trees.add(tree);
+					elements[i][j]=tree;
 				}
 			}
 		}
@@ -224,6 +231,7 @@ public class MapBuiler {
 					Position position=new Position(i,j);
 					House h=new House(position);
 					house.add(h);
+					elements[i][j]=h;
 				}
 			}
 		}
@@ -235,6 +243,7 @@ public class MapBuiler {
 					Position position=new Position(i,j);
 					Fire f=new Fire(position);
 					fire.add(f);
+					elements[i][j]=f;
 				}
 			}
 		}
