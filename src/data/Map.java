@@ -69,7 +69,7 @@ public class Map {
 		this.houses = houses;
 	}
 
-	public Element[][] visionDrone() {
+	public Element[][] getVisionDrone() {
 		return droneVision;
 	}
 

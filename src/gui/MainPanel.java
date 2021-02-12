@@ -13,12 +13,12 @@ import config.GuiData;
 import data.Drone;
 import data.Map;
 import process.ElementManager;
+import process.MapBuiler;
 
 public class MainPanel extends JFrame implements Runnable {
 	private Map map;
-	//private Zone[][] initialDroneVision;
+	
 	private static final long serialVersionUID = 1L;
-	private ElementManager elementManager;
 	private GuiMap dashboard;
 	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH, GuiData.WINDOW_HEIGHT);
 
@@ -26,30 +26,35 @@ public class MainPanel extends JFrame implements Runnable {
 		super(title);
 		this.setPreferredSize(new Dimension(300, 300));
 
-		/*initialDroneVision = new Zone[5][5];
-		Drone drone = new Drone("Le Drone", 0, 0, initialDroneVision);
-		map = new Map("Carte Test", drone, initialDroneVision);*/
-		
+		/*
+		 * initialDroneVision = new Zone[5][5]; Drone drone = new Drone("Le Drone", 0,
+		 * 0, initialDroneVision); map = new Map("Carte Test", drone,
+		 * initialDroneVision);
+		 */
+
 		init();
 		run();
 	}
 
 	private void init() {
-
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		KeyControls keyControls = new KeyControls();
-//		JTextField textField = new JTextField();
-		this.addKeyListener(keyControls);
-//		contentPane.add(textField, BorderLayout.SOUTH);
+		JTextField textField = new JTextField();
+		textField.addKeyListener(keyControls);
+		MapBuiler newMapBuiler=  new MapBuiler();	
+		map =newMapBuiler.getMap();
+		dashboard= new GuiMap(map);
+		dashboard.repaint(getGraphics());
+		dashboard.setPreferredSize(preferredSize);
+		contentPane.add(dashboard, BorderLayout.CENTER);
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		dashboard = new GuiMap(map, elementManager);
-		contentPane.add(dashboard);
 		pack();
 		setVisible(true);
 		setPreferredSize(preferredSize);
 		setResizable(false);
-
+		
 	}
 
 	public void run() {
@@ -61,7 +66,7 @@ public class MainPanel extends JFrame implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
-			
+
 			dashboard.repaint();
 		}
 	}

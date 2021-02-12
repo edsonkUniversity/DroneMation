@@ -12,12 +12,8 @@ import data.Position;
 import data.Tree;
 
 public class MapBuiler {
-	private Element[][] elements = new Element[600][600];
+	private Element[][] elements = new Element[20][20];
 
-	// For Raphael:
-	public Element[][] getElements() {
-		return elements;
-	}
 
 	private int[][] freeSquares;
 	private int[][] SquaresWhithCode;

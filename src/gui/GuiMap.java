@@ -14,18 +14,14 @@ public class GuiMap extends JPanel {
 	private ElementManager manager;
 	private PaintStrategy paintStrategy = new PaintStrategy();
 
-	public GuiMap(Map map, ElementManager manager) {
+	public GuiMap(Map map) {
 		this.map = map;
 		this.manager = manager;
 
 	}
-	/*
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		// Coordonnées à compléter
-
-		paintStrategy.paint(map, g, this);
+	// peint the changement of trun on the map 
+	public void repaint(Graphics g) {
+		paintStrategy.paint(map, g);
 	}
-	*/
 
 }
