@@ -6,6 +6,8 @@ public class GuiData {
 	
 	public static final int WINDOW_WIDTH = 600;
 	public static final int WINDOW_HEIGHT = 600;
+	public static final int NUMBER_COLUMB = 0;
+	public static final int NUMBER_OF_LINE =0;
 	
 	/**
 	 * Parameters of Elements Color
