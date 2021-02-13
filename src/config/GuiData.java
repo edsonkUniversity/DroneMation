@@ -4,10 +4,9 @@ import java.awt.Color;
 
 public class GuiData {
 	
-	public static final int WINDOW_WIDTH = 500;
-	public static final int WINDOW_HEIGHT = 500;
-	public static final int NUMBER_COLUMB = 20;
-	public static final int NUMBER_OF_LINE =20;
+	public static final int WINDOW_WIDTH = 415;
+	public static final int WINDOW_HEIGHT = 435;
+	public static final int RECT_SIZE = 20;
 	
 	/**
 	 * Parameters of Elements Color

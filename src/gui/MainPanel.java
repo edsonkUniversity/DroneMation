@@ -24,7 +24,7 @@ public class MainPanel extends JFrame implements Runnable {
 
 	public MainPanel(String title) {
 		super(title);
-		this.setPreferredSize(new Dimension(300, 300));
+		this.setPreferredSize(preferredSize);
 
 		/*
 		 * initialDroneVision = new Zone[5][5]; Drone drone = new Drone("Le Drone", 0,
