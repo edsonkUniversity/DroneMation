@@ -1,10 +1,15 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.event.KeyEvent;
@@ -55,6 +60,25 @@ public class MainPanel extends JFrame implements Runnable {
 		setPreferredSize(preferredSize);
 		setResizable(false);
 		
+		JFrame treePopUp = createPopUp(GuiData.TREE_TEXT_TITLE, GuiData.TREE_TEXT);
+		treePopUp.setVisible(true);
+		JFrame forestPopUp = createPopUp(GuiData.FOREST_TEXT_TITLE, GuiData.FOREST_TEXT);
+		forestPopUp.setVisible(true);
+		JFrame forestFirePopUp = createPopUp(GuiData.FOREST_FIRE_TEXT_TITLE, GuiData.FOREST_FIRE_TEXT);
+		forestFirePopUp.setVisible(true);
+	}
+	
+	public JFrame createPopUp(String titleText, String textPopUp) {
+		JFrame jFrame = new JFrame();
+		jFrame.setSize(300,300);
+		jFrame.setTitle(titleText);
+		JTextArea jTextArea = new JTextArea(textPopUp);
+		jTextArea.setEnabled(false);
+		jTextArea.setForeground(Color.WHITE);
+		jTextArea.setLineWrap(true);
+		jTextArea.setBackground(Color.BLACK);
+		jFrame.add(jTextArea);
+		return jFrame;
 	}
 
 	public void run() {
