@@ -2,6 +2,9 @@ package data;
 
 import java.util.ArrayList;
 
+import config.GuiData;
+import config.SimulationParameters;
+
 public class Map {
 
 	private int[][] cases;
@@ -10,8 +13,9 @@ public class Map {
 	private ArrayList<House> houses;
 	private String name;
 	private Drone drone;
-	private Element[][] droneVision = new Element[20][20];
-
+	private Element[][] elementsInMap = new Element[SimulationParameters.MAP_HEIGHT][SimulationParameters.MAP_WIDTH];
+	private Element[][] droneVision = new Element[GuiData.WINDOW_HEIGHT][GuiData.WINDOW_WIDTH];
+	
 	public Map(int[][] cases, String name, Drone drone) {
 		this.cases = cases;
 		this.name = "MAP";
@@ -75,6 +79,14 @@ public class Map {
 
 	public void setVisionDrone(Element[][] visionDrone) {
 		this.droneVision = visionDrone;
+	}
+
+	public Element[][] getElementsInMap() {
+		return elementsInMap;
+	}
+
+	public void setElementsInMap(Element[][] elementsInMap) {
+		this.elementsInMap = elementsInMap;
 	}
 
 }

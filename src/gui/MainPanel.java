@@ -38,7 +38,7 @@ public class MainPanel extends JFrame implements Runnable {
 		 */
 
 		init();
-		run();
+//		run();
 	}
 
 	private void init() {
@@ -53,7 +53,7 @@ public class MainPanel extends JFrame implements Runnable {
 	//	dashboard.repaint(getGraphics());
 		dashboard.setPreferredSize(preferredSize);
 		contentPane.add(dashboard, BorderLayout.CENTER);
-		
+		contentPane.add(textField, BorderLayout.WEST);		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
@@ -92,6 +92,8 @@ public class MainPanel extends JFrame implements Runnable {
 			}
 
 			dashboard.repaint();
+//			System.out.println(map.getElementsInMap()[0][0].getColor());
+
 		}
 	}
 

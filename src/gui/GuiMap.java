@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import data.Drone;
 import data.Map;
 import process.ElementManager;
 
@@ -23,7 +24,6 @@ public class GuiMap extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		paintStrategy.paint(map, g);
-		
 		
 	}
 	

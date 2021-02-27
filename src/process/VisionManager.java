@@ -31,4 +31,16 @@ public class VisionManager {
 		return isTree;
 	}
 
+	public void droneVision(Map map) {
+		int droneColumn = drone.getPosition().getColumn();
+		int droneLine = drone.getPosition().getLine();
+		Element[][] visionElements = new Element[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
+		for (int indexLine = 0; indexLine < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; indexLine++) {
+			for (int indexColumn = 0; indexColumn < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; indexColumn++) {
+				visionElements[indexLine][indexColumn]=map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];
+			}
+		}
+		map.setVisionDrone(visionElements);		
+	}
+	
 }

@@ -2,6 +2,7 @@ package process;
 
 import java.util.ArrayList;
 
+import config.GuiData;
 import config.SimulationParameters;
 import data.Drone;
 import data.Element;
@@ -12,14 +13,15 @@ import data.Position;
 import data.Tree;
 
 public class MapBuiler {
-	private Element[][] elements = new Element[20][20];
+	private Element[][] elements = new Element[SimulationParameters.MAP_HEIGHT][SimulationParameters.MAP_WIDTH];
 
 	private int[][] freeSquares;
 	private int[][] SquaresWhithCode;
-	private ArrayList<Tree> trees;
-	private ArrayList<Fire> fire;
-	private ArrayList<House> house;
+	private ArrayList<Tree> treesList;
+	private ArrayList<Fire> firesList;
+	private ArrayList<House> housesList;
 	private Map resultMap;
+	private Drone drone;
 
 	/**
 	 * Code for Squares :
@@ -31,46 +33,102 @@ public class MapBuiler {
 	public MapBuiler() {
 		this.freeSquares = new int[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
 		this.SquaresWhithCode = new int[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
-		this.fire = new ArrayList<Fire>();
-		this.house = new ArrayList<House>();
-		this.trees = new ArrayList<Tree>();
-		this.resultMap = new Map(SquaresWhithCode, "Carte_Proto", new Drone(new Position(25, 25)));
+		this.firesList = new ArrayList<Fire>();
+		this.housesList = new ArrayList<House>();
+		this.treesList = new ArrayList<Tree>();
+		this.drone = new Drone(new Position(0, 0));
+		this.resultMap = new Map(SquaresWhithCode, "Carte_Proto", drone);
 	}
 
 	public Map getMap() {
-		initElements();
-		voidInitSuaresTab();
-		generateTrees();
-		generateHouses();
-		generateFire();
-		putTrees();
-		putHouses();
-		putFire();
-		resultMap.setHouses(house);
-		resultMap.setTrees(trees);
-		resultMap.setFires(fire);
+
+		createElementInMap();
+		resultMap.setHouses(housesList);
+		resultMap.setTrees(treesList);
+		resultMap.setFires(firesList);
 		resultMap.setCases(SquaresWhithCode);
-		resultMap.setVisionDrone(elements);
+		resultMap.setElementsInMap(elements);
 		return resultMap;
 	}
-
-	public void aDDTrees() {
+/**
+ * Ajoute les forets sur la carte
+ * @param line
+ * @param column
+ */
+	public void addForest(int line, int column) {
+		Position position = new Position(line, column);
+		Tree tree = new Tree(position);
+		treesList.add(tree);
+		elements[line][column] = tree;
 
 	}
 
-	public void aDDFire() {
+	/**
+	 * Ajoute les feux sur la carte
+	 * @param line
+	 * @param column
+	 */
+	public void addFire(int line, int column) {
+		int firecode = getRandom(0, 6);
+		if (firecode <= 2) {
+			Position position = new Position(line, column);
+			Fire fire = new Fire(position);
+			firesList.add(fire);
+			elements[line][column] = fire;
+		}
 
 	}
 
-	public void aDDHouses() {
+	/**
+	 * Ajoute les Maisons sur la carte
+	 * @param line
+	 * @param column
+	 */
+	public void addHouses(int line, int column) {
 
+		Position position = new Position(line, column);
+		House house = new House(position);
+		housesList.add(house);
+		elements[line][column] = house;
 	}
 
-	public void voidInitSuaresTab() {
-		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; i++) {
-			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
-				this.SquaresWhithCode[i][j] = 0;
-				this.freeSquares[i][j] = 0;
+	/**
+	 * Creer la tableau contenant tout les elements de la carte
+	 */
+	public void createElementInMap() {
+		int elementCode = 0;
+		for (int indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
+			for (int indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
+				elementCode = getRandom(0, 5);
+				switch (elementCode) {
+				case 0: {
+					for (int indexForest = 0; indexForest < 7; indexForest++) {
+						int newLine = indexLine + indexForest;
+						int newColumn = indexColumn + indexForest;
+						if (newLine < SimulationParameters.MAP_HEIGHT && newColumn < SimulationParameters.MAP_WIDTH) {
+							addForest(indexLine + indexForest, indexColumn);
+							addForest(indexLine + indexForest, indexColumn);
+						}
+					}
+					indexColumn += 10;
+					break;
+				}
+				case 1: {
+					addHouses(indexLine, indexColumn);
+					break;
+				}
+				case 2: {
+					addHouses(indexLine, indexColumn);
+					break;
+				}
+				case 3: {
+					addFire(indexLine, indexColumn);
+					break;
+				}
+				default:
+					elements[indexLine][indexColumn] = null;
+				}
+
 			}
 		}
 	}
@@ -92,27 +150,27 @@ public class MapBuiler {
 	}
 
 	public ArrayList<Tree> getTrees() {
-		return trees;
+		return treesList;
 	}
 
 	public void setTrees(ArrayList<Tree> trees) {
-		this.trees = trees;
+		this.treesList = trees;
 	}
 
 	public ArrayList<Fire> getFire() {
-		return fire;
+		return firesList;
 	}
 
 	public void setFire(ArrayList<Fire> fire) {
-		this.fire = fire;
+		this.firesList = fire;
 	}
 
 	public ArrayList<House> getHouse() {
-		return house;
+		return housesList;
 	}
 
 	public void setHouse(ArrayList<House> house) {
-		this.house = house;
+		this.housesList = house;
 	}
 
 	public Map getResultMap() {
@@ -123,131 +181,7 @@ public class MapBuiler {
 		this.resultMap = resultMap;
 	}
 
-	public void generateTrees() {
-		int i = 0;
-		while (i < 4) {
-			int randomHightP = (int) (Math.random() * (SimulationParameters.NUMBER_OF_HEIGHT_SQUARES - 10 + 1) + 10);
-			int randomWhightP = (int) (Math.random() * (SimulationParameters.NUMBER_OF_WIDTH_SQUARES - 10 + 1) + 10);
-			if (randomHightP + 10 < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES
-					&& randomWhightP + 10 < SimulationParameters.NUMBER_OF_WIDTH_SQUARES) {
-				if ((randomHightP > 1) && (randomWhightP > 1)) {
-					SquaresWhithCode[randomHightP][randomWhightP] = 5;
-					freeSquares[randomHightP][randomWhightP] = 1;
-
-					SquaresWhithCode[randomHightP][randomWhightP + 1] = 5;
-					freeSquares[randomHightP][randomWhightP + 1] = 1;
-
-					SquaresWhithCode[randomHightP][randomWhightP - 1] = 5;
-					freeSquares[randomHightP][randomWhightP - 1] = 1;
-
-					SquaresWhithCode[randomHightP + 1][randomWhightP] = 5;
-					freeSquares[randomHightP + 1][randomWhightP] = 1;
-
-					SquaresWhithCode[randomHightP - 1][randomWhightP] = 5;
-					freeSquares[randomHightP - 1][randomWhightP] = 1;
-
-					SquaresWhithCode[randomHightP - 1][randomWhightP + 1] = 5;
-					freeSquares[randomHightP - 1][randomWhightP + 1] = 1;
-
-					SquaresWhithCode[randomHightP - 1][randomWhightP - 1] = 5;
-					freeSquares[randomHightP - 1][randomWhightP - 1] = 1;
-
-					SquaresWhithCode[randomHightP - 1][randomWhightP - 2] = 5;
-					freeSquares[randomHightP - 1][randomWhightP - 2] = 1;
-
-					SquaresWhithCode[randomHightP - 2][randomWhightP - 1] = 5;
-					freeSquares[randomHightP - 2][randomWhightP - 1] = 1;
-
-					SquaresWhithCode[randomHightP - 2][randomWhightP - 2] = 5;
-					freeSquares[randomHightP - 2][randomWhightP - 2] = 1;
-
-					SquaresWhithCode[randomHightP - 1][randomWhightP - 2] = 5;
-					freeSquares[randomHightP - 1][randomWhightP - 2] = 1;
-					i++;
-				}
-			}
-		}
+	private int getRandom(int min, int max) {
+		return (int) (Math.random() * (max + 1 - min)) + min;
 	}
-
-	public void generateHouses() {
-		int i = 0;
-		while (i < 20) {
-			int randomHeightP = (int) (Math.random() * (SimulationParameters.NUMBER_OF_HEIGHT_SQUARES - 1 + 1) + 1);
-			int randomWidthP = (int) (Math.random() * (SimulationParameters.NUMBER_OF_WIDTH_SQUARES - 1 + 1) + 1);
-			if (randomHeightP + 10 < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES
-					&& randomWidthP + 10 < SimulationParameters.NUMBER_OF_WIDTH_SQUARES) {
-				if (freeSquares[randomHeightP][randomWidthP] == 0) {
-					SquaresWhithCode[randomHeightP][randomWidthP] = 3;
-					freeSquares[randomHeightP][randomWidthP] = 1;
-					i++;
-				}
-			}
-
-		}
-	}
-
-	public void generateFire() {
-		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; i++) {
-			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
-				if (SquaresWhithCode[i][j] == 5) {
-					int randomFire = (int) (Math.random() * (3 - 1 + 1) + 1);
-					if (randomFire == 1) {
-						SquaresWhithCode[i][j] = 2;
-					}
-				}
-			}
-		}
-	}
-
-	public void putTrees() {
-		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; i++) {
-			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
-				if (SquaresWhithCode[i][j] == 5) {
-					Position position = new Position(i, j);
-					Tree tree = new Tree(position);
-					trees.add(tree);
-					elements[i][j] = tree;
-				}
-			}
-		}
-	}
-	
-	
-	public void initElements() {
-		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES-1; i++) {
-			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES-1; j++) {
-				Position position = new Position(i, j);
-				House h = new House(position);
-				elements[i][j] = h;
-				
-			}
-		}
-	}
-
-	public void putHouses() {
-		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; i++) {
-			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
-				if (SquaresWhithCode[i][j] == 3) {
-					Position position = new Position(i, j);
-					House h = new House(position);
-					house.add(h);
-					elements[i][j] = h;
-				}
-			}
-		}
-	}
-
-	public void putFire() {
-		for (int i = 0; i < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; i++) {
-			for (int j = 0; j < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; j++) {
-				if (SquaresWhithCode[i][j] == 2) {
-					Position position = new Position(i, j);
-					Fire f = new Fire(position);
-					fire.add(f);
-					elements[i][j] = f;
-				}
-			}
-		}
-	}
-
 }
