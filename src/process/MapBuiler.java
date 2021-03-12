@@ -44,7 +44,7 @@ public class MapBuiler {
 	public Map getMap() {
 
 		createElementInMap();
-		mapSmoothing();
+//		mapSmoothing();
 		resultMap.setHouses(housesList);
 		resultMap.setTrees(treesList);
 		resultMap.setFires(firesList);
