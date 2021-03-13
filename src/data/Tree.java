@@ -8,6 +8,7 @@ public class Tree extends Element {
 	private boolean isRightTree;
 	private boolean isUpTree;
 	private boolean isDownTree;
+	private boolean isVisit=false;
 
 	public Tree(Position position) {
 		super(position, Color.green);
@@ -44,6 +45,14 @@ public class Tree extends Element {
 
 	public void setDownTree(boolean downTree) {
 		isDownTree = downTree;
+	}
+
+	public boolean isVisit() {
+		return isVisit;
+	}
+
+	public void setVisit(boolean isVisit) {
+		this.isVisit = isVisit;
 	}
 
 }

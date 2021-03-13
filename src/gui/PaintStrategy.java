@@ -19,7 +19,7 @@ public class PaintStrategy {
 	public void paint(Map map, Graphics g) {
 		// recupreation of the vision by drone
 		VisionManager visionManager =  new VisionManager(map, map.getDrone());
-		visionManager.droneVision(map);
+		visionManager.isDetected(map);
 		Element[][] droneVision = map.getVisionDrone();
 		for (int line = 0; line < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; line++) {
 			for (int columb = 0; columb < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; columb++) {
