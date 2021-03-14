@@ -105,9 +105,10 @@ public class MapBuiler {
 		int elementCode = 0;
 		for (int indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (int indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
-				elementCode = getRandom(0, 5);
+				elementCode = getRandom(0, 10);
+				// 4 null  + 3 forêt + 2  maison +1 feu 
 				switch (elementCode) {
-				case 0: {
+				case 0:  {
 					for (int indexForest = 0; indexForest < 7; indexForest++) {
 						int newLine = indexLine + indexForest;
 						int newColumn = indexColumn + indexForest;
@@ -119,6 +120,7 @@ public class MapBuiler {
 					indexColumn += 10;
 					break;
 				}
+				
 				case 1: {
 					addHouses(indexLine, indexColumn);
 					break;
@@ -145,11 +147,69 @@ public class MapBuiler {
 		Color elementMap;
 		int y;
 		int x;
+		// maison 
+		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
+			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
+				if (elements[indexLine][indexColumn] != null) {
+					elementMap = elements[indexLine][indexColumn].getColor();
+					y = elements[indexLine][indexColumn].getPosition().getColumn();
+					x = elements[indexLine][indexColumn].getPosition().getLine();
+					if (elementMap.equals(GuiData.HOUSE_COLOR)) {
+						// if the house is on edge of the map we delete it
+						if (x == SimulationParameters.MAP_HEIGHT || y == SimulationParameters.MAP_WIDTH || x == 0
+								|| y == 0) {
+							housesList.remove(elements[indexLine][indexColumn]);
+							elements[indexLine][indexColumn] = null;
+						} else {
+							// if the house is in middle of tree he became a tree
+							int tree = 0;
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine + 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine + 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine + 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine - 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine - 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (tree >= 2) {
+								housesList.remove(elements[indexLine][indexColumn]);
+								elements[indexLine][indexColumn] = new Tree(new Position(x, y));
+								treesList.add(new Tree(new Position(x, y)));
+							}
+						}
+					}
+				}
+			}
+		}
+		// case null
 		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				if (elements[indexLine][indexColumn] == null) {
 					// we verify if a cell is null
-
 					int tree = 0;
 					if (inRange(indexLine) && inRange(indexColumn)
 							&& isNotNull(elements[indexLine - 1][indexColumn + 1])) {
@@ -195,78 +255,17 @@ public class MapBuiler {
 							tree++;
 						}
 					}
-					if (tree <= 3) {
-						firesList.remove(elements[indexLine][indexColumn]);
-						elements[indexLine][indexColumn] = null;
+					if (tree >= 3) {
+
+						elements[indexLine][indexColumn] = new Tree(new Position(indexLine, indexColumn));
+						treesList.add(new Tree(new Position(indexLine, indexColumn)));
 					}
 				}
 			}
 		}
-		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
-			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
-				if (elements[indexLine][indexColumn] != null) {
-					elementMap = elements[indexLine][indexColumn].getColor();
-					y = elements[indexLine][indexColumn].getPosition().getColumn();
-					x = elements[indexLine][indexColumn].getPosition().getLine();
-					if (elementMap.equals(GuiData.HOUSE_COLOR)) {
-						// if the house is on edge of the map we delete it
-						if (x == SimulationParameters.MAP_HEIGHT || y == SimulationParameters.MAP_WIDTH || x == 0
-								|| y == 0) {
-							housesList.remove(elements[indexLine][indexColumn]);
-							elements[indexLine][indexColumn] = null;
-						} else {
-							// if the house is in middle of tree he became a tree
-							int tree = 0;
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine + 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine + 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine + 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine - 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (indexLine + 1 < SimulationParameters.MAP_WIDTH
-									&& indexColumn + 1 < SimulationParameters.MAP_WIDTH
-									&& elements[indexLine - 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-								tree++;
-							}
-							if (tree >= 3) {
-								housesList.remove(elements[indexLine][indexColumn]);
-								elements[indexLine][indexColumn] = new Tree(new Position(x, y));
-								treesList.add(new Tree(new Position(x, y)));
-							}
-						}
-					}
-				}
-			}
-		}
+		
+		
+		// foret 
 		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				if (elements[indexLine][indexColumn] != null) {
@@ -334,6 +333,8 @@ public class MapBuiler {
 				}
 			}
 		}
+		
+		// feu 
 		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				if (elements[indexLine][indexColumn] != null) {
@@ -344,24 +345,14 @@ public class MapBuiler {
 						if (elementMap.equals(GuiData.FIRE_COLOR)) {
 							// we verify if a forest around the fire
 							int tree = 0;
-							if (inRange(indexLine) && inRange(indexColumn)
-									&& isNotNull(elements[indexLine - 1][indexColumn + 1])) {
-								if (elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-									tree++;
-								}
-							}
+
 							if (inRange(indexLine) && inRange(indexColumn)
 									&& isNotNull(elements[indexLine - 1][indexColumn])) {
 								if (elements[indexLine - 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
 									tree++;
 								}
 							}
-							if (inRange(indexLine) && inRange(indexColumn)
-									&& isNotNull(elements[indexLine - 1][indexColumn - 1])) {
-								if (elements[indexLine - 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-									tree++;
-								}
-							}
+
 							if (inRange(indexLine) && inRange(indexColumn)
 									&& isNotNull(elements[indexLine][indexColumn + 1])) {
 								if (elements[indexLine][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
@@ -374,21 +365,10 @@ public class MapBuiler {
 									tree++;
 								}
 							}
+
 							if (inRange(indexLine) && inRange(indexColumn)
-									&& isNotNull(elements[indexLine + 1][indexColumn + 1])) {
-								if (elements[indexLine + 1][indexColumn + 1].equals(GuiData.TREE_COLOR)) {
-									tree++;
-								}
-							}
-							if (inRange(indexLine) && inRange(indexColumn)
-									&& isNotNull(elements[indexLine][indexColumn + 1])) {
-								if (elements[indexLine][indexColumn + 1].equals(GuiData.TREE_COLOR)) {
-									tree++;
-								}
-							}
-							if (inRange(indexLine) && inRange(indexColumn)
-									&& isNotNull(elements[indexLine - 1][indexColumn + 1])) {
-								if (elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+									&& isNotNull(elements[indexLine+1][indexColumn])) {
+								if (elements[indexLine+1][indexColumn ].equals(GuiData.TREE_COLOR)) {
 									tree++;
 								}
 							}
@@ -401,6 +381,63 @@ public class MapBuiler {
 				}
 			}
 		}
+		// maison 
+				for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
+					for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
+						if (elements[indexLine][indexColumn] != null) {
+							elementMap = elements[indexLine][indexColumn].getColor();
+							y = elements[indexLine][indexColumn].getPosition().getColumn();
+							x = elements[indexLine][indexColumn].getPosition().getLine();
+							if (elementMap.equals(GuiData.HOUSE_COLOR)) {
+								// if the house is on edge of the map we delete it
+								if (x == SimulationParameters.MAP_HEIGHT || y == SimulationParameters.MAP_WIDTH || x == 0
+										|| y == 0) {
+									housesList.remove(elements[indexLine][indexColumn]);
+									elements[indexLine][indexColumn] = null;
+								} else {
+									// if the house is in middle of tree he became a tree
+									int tree = 0;
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine + 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine + 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine + 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine - 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (inRange(indexLine) && inRange(indexColumn)
+											&& elements[indexLine - 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+										tree++;
+									}
+									if (tree >= 2) {
+										housesList.remove(elements[indexLine][indexColumn]);
+										elements[indexLine][indexColumn] = null;
+									}
+								}
+							}
+						}
+					}
+				}
 	}
 
 	public int[][] getFreeSquares() {

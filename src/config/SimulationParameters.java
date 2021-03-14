@@ -7,8 +7,8 @@ public class SimulationParameters {
 	 */
 	public static final int NUMBER_OF_WIDTH_SQUARES = 21;
 	public static final int NUMBER_OF_HEIGHT_SQUARES = 21;
-	public static final int MAP_HEIGHT = 100;
-	public static final int MAP_WIDTH = 100;	
+	public static final int MAP_HEIGHT = 500;
+	public static final int MAP_WIDTH = 500;	
 
 	
 	/**
