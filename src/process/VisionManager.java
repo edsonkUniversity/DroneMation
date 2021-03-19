@@ -1,8 +1,6 @@
 package process;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import config.SimulationParameters;
 import data.Drone;
@@ -47,48 +45,47 @@ public class VisionManager {
 	}
 
 	/**
-	 * Cette Methode indique si le drone a fait une detection de la partie affiché
-	 * Methode appelé dans PaintStategy
+	 * Cette Methode indique si le drone a fait une detection de la partie affichï¿½
+	 * Methode appelï¿½ dans PaintStategy
 	 * @param map
-	 * @return
+	 * NAME CHANGED! CALLS "boolean isDetected" BEFORE!
 	 */
-	public boolean isDetected(Map map) {
-		boolean detect;
+	public void checkIfDetected(Map map) {
 		Position dronePosition = drone.getPosition();
 		/**
 		 *  Le Objet Position dronePosition represente la position
 		 *  en haut a gouche de chaque vision du drone.
 		 */
-		if(drone.getDetectForest().containsKey(dronePosition)) { 
-			detect = true;
+		if(drone.getDetectForest().containsKey(dronePosition)) {
 			detectedDroneVision(map);
 		}else {
-			detect = false;
 			droneVision(map);
 			//a faire detection
-			
+			//1-list de arbres stockÃ© (is
+
 		}
-		return detect;
 	}
 	
 	/**
-	 * Cette methode affiche la carte du drone avec les elements (Arbre) precedement détecté d'une couleurs differente.
-	 * Methode appelé dans isDetected()
+	 * Cette methode affiche la carte du drone avec les elements (Arbre) precedement dï¿½tectï¿½ d'une couleurs differente.
+	 * Methode appelï¿½ dans isDetected()
 	 * @param map
 	 */
 	public void detectedDroneVision(Map map) {
 		int droneColumn = drone.getPosition().getColumn();
 		int droneLine = drone.getPosition().getLine();
+
 		Element[][] visionElements = new Element[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
 		for (int indexLine = 0; indexLine < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; indexLine++) {
 			for (int indexColumn = 0; indexColumn < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; indexColumn++) {
+				//ATTENTION, THE ORDER WAS WRONG!
+				visionElements[indexLine][indexColumn] = map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];//THIS LINE MUST BE CALLED BEFORE
 				if (visionElements[indexLine][indexColumn].getColor().equals(Color.green)) {
 					Tree tree = (Tree) visionElements[indexLine][indexColumn];
-					if(tree.isVisit()) {
+					if(tree.isContour()) {
 						visionElements[indexLine][indexColumn].setColor(new Color(74, 100, 50));
 					}
 				}
-				visionElements[indexLine][indexColumn] = map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];
 			}
 		}
 		map.setVisionDrone(visionElements);		

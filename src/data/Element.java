@@ -5,6 +5,8 @@ import java.awt.Color;
 public abstract class Element  {
 		private Position position;
 		private Color color;
+
+		private boolean isVisit=false;
 		
 		//We define color directly in child-class, can be moved to config later
 		public Element(Position position, Color color) {
@@ -27,4 +29,19 @@ public abstract class Element  {
 		public void setColor(Color color) {
 			this.color = color;
 		}
+
+
+	public boolean isVisit() {
+		return isVisit;
+	}
+
+	public void setVisit() {
+		isVisit = true;
+	}
+
+	//NOT SURE IF CAN WORK LIKE WE WANT
+	public boolean ifSameType(Element check){
+			return this.getColor().equals(check.getColor());
+	}
+
 }
