@@ -25,7 +25,7 @@ public class MainPanel extends JFrame implements Runnable {
 	
 	private static final long serialVersionUID = 1L;
 	private GuiMap dashboard;
-	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH, GuiData.WINDOW_HEIGHT);
+	private final static Dimension preferredSize = new Dimension(GuiData.WINDOW_WIDTH+510, GuiData.WINDOW_HEIGHT);
 
 	public MainPanel(String title) {
 		super(title);

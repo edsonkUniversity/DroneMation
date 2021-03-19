@@ -74,7 +74,7 @@ public class MapBuiler {
 	 * @param column
 	 */
 	public void addFire(int line, int column) {
-		int firecode = getRandom(0, 6);
+		int firecode = getRandom(0, 100);
 		if (firecode <= 2) {
 			Position position = new Position(line, column);
 			Fire fire = new Fire(position);
@@ -109,7 +109,7 @@ public class MapBuiler {
 				// 4 null  + 3 forêt + 2  maison +1 feu 
 				switch (elementCode) {
 				case 0:  {
-					for (int indexForest = 0; indexForest < 7; indexForest++) {
+					for (int indexForest = 0; indexForest < 3; indexForest++) {
 						int newLine = indexLine + indexForest;
 						int newColumn = indexColumn + indexForest;
 						if (newLine < SimulationParameters.MAP_HEIGHT && newColumn < SimulationParameters.MAP_WIDTH) {
