@@ -4,15 +4,15 @@ import java.awt.Color;
 
 public class Tree extends Element {
 
-	private boolean isLeftTree;
-	private boolean isRightTree;
-	private boolean isUpTree;
-	private boolean isDownTree;
-	private boolean isVisit=false;
+	private boolean isLeftTree=true;
+	private boolean isRightTree=true;
+	private boolean isUpTree=true;
+	private boolean isDownTree=true;
+
+	private boolean isContour=false;
 
 	public Tree(Position position) {
 		super(position, Color.green);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isLeftTree() {
@@ -47,12 +47,12 @@ public class Tree extends Element {
 		isDownTree = downTree;
 	}
 
-	public boolean isVisit() {
-		return isVisit;
+	public boolean isContour() {
+		return isContour;
 	}
 
-	public void setVisit(boolean isVisit) {
-		this.isVisit = isVisit;
+	public void setContour(boolean contour) {
+		isContour = contour;
 	}
 
 }
