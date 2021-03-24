@@ -5,14 +5,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
 import config.GuiData;
 import config.SimulationParameters;
 import data.Element;
+import data.Forest;
 import data.Map;
+import data.Position;
 import process.VisionManager;
 
 public class PaintStrategy {
 	private int sizeOfRect = 0;
+	private Forest[] forest;
+	private Position key;
+    private Position cornerPosition;
+    private int nbForet=0;
 
 	
 	public void miniMapPaint(Map map, Graphics2D g) {
@@ -47,16 +56,17 @@ public class PaintStrategy {
 	}
 	
 	public void paint(Map map, Graphics g) {
+        nbForet=0;
+        // recupreation of the vision by drone
+        VisionManager visionManager =  new VisionManager(map, map.getDrone());
 
-		// recupreation of the vision by drone
-		VisionManager visionManager =  new VisionManager(map, map.getDrone());
+        visionManager.checkIfDetected(map);
 
-		visionManager.checkIfDetected(map);
-
-		Element[][] droneVision = map.getVisionDrone();
-		for (int line = 0; line < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; line++) {
-			for (int column = 0; column < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; column++) {
-				if(droneVision[line][column]!=null) {
+        Element[][] droneVision = map.getVisionDrone();
+        cornerPosition= map.getDrone().getPosition();
+        for (int line = 0; line < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; line++) {
+            for (int column = 0; column < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; column++) {
+                if(droneVision[line][column]!=null) {
                     g.setColor(droneVision[line][column].getColor());
                     g.fillRect(line * GuiData.RECT_SIZE, column * GuiData.RECT_SIZE, GuiData.RECT_SIZE, GuiData.RECT_SIZE);
                     
@@ -65,10 +75,32 @@ public class PaintStrategy {
                 g.drawLine(0, column*GuiData.RECT_SIZE, GuiData.WINDOW_HEIGHT, column*GuiData.RECT_SIZE);
                 g.drawLine(line*GuiData.RECT_SIZE,0, line*GuiData.RECT_SIZE, GuiData.WINDOW_WIDTH);
                 g.setColor(Color.white);
-			}
-
-		}
-
-	}
+            }
+            
+        }
+        forest= map.getDrone().getDetectForest().get(cornerPosition);
+        int i=0;
+//        while(forest[i]!=null) {
+//            key=forest[0].getForest().get(1).getPosition();
+//            i++;
+//            createPopUp();
+//        }
+        }
+	
+	 public JFrame createPopUp() {
+         JFrame jFrame = new JFrame();
+         jFrame.setSize(300,300);
+         jFrame.setLocation((key.getLine()-cornerPosition.getLine())*20,(key.getColumn()-cornerPosition.getColumn())*20);
+         jFrame.setTitle(GuiData.FOREST_TEXT_TITLE+nbForet);
+         JTextArea jTextArea = new JTextArea(GuiData.FOREST_TEXT);
+         jTextArea.setEnabled(false);
+         jTextArea.setForeground(Color.WHITE);
+         jTextArea.setLineWrap(true);
+         jTextArea.setBackground(Color.BLACK);
+         jFrame.add(jTextArea);
+         jFrame.setVisible(true);
+         nbForet++;
+         return jFrame;
+     }
 
 }
