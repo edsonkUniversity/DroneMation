@@ -43,7 +43,7 @@ public class PaintStrategy {
 							
 						}
 							g.setColor(Color.BLACK);
-							g.drawRect(x+ 442, y , 21, 21);
+							g.drawRect(x+ 442, y , 22, 21);
 			                g.setColor(Color.white);
 
 //							g.fillRect(x * 5, y * 5, 5, 5);
@@ -73,7 +73,7 @@ public class PaintStrategy {
                 }
                 g.setColor(Color.DARK_GRAY);
                 g.drawLine(0, column*GuiData.RECT_SIZE, GuiData.WINDOW_HEIGHT, column*GuiData.RECT_SIZE);
-                g.drawLine(line*GuiData.RECT_SIZE,0, line*GuiData.RECT_SIZE, GuiData.WINDOW_WIDTH);
+                g.drawLine(line*GuiData.RECT_SIZE,0, line*GuiData.RECT_SIZE, GuiData.WINDOW_WIDTH+42);
                 g.setColor(Color.white);
             }
             
