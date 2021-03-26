@@ -8,8 +8,8 @@ public class Tree extends Element {
 	private boolean isRightTree=true;
 	private boolean isUpTree=true;
 	private boolean isDownTree=true;
-
 	private boolean isContour=false;
+	private boolean isfire=false;
 
 	public Tree(Position position) {
 		super(position, Color.green);
@@ -53,6 +53,14 @@ public class Tree extends Element {
 
 	public void setContour(boolean contour) {
 		isContour = contour;
+	}
+
+	public boolean isIsfire() {
+		return isfire;
+	}
+
+	public void setIsfire(boolean isfire) {
+		this.isfire = isfire;
 	}
 
 }
