@@ -18,6 +18,7 @@ public class VisionManager {
 	private Drone drone;
 	private Position firstPositionV;
 	private Position lastPositionV;
+	private Timer timer = new Timer(2000, new TimerListener());
 
 	public VisionManager(Map map, Drone drone) {
 		this.map = map;
@@ -59,7 +60,8 @@ public class VisionManager {
 		droneVision(map);
 		Detection detection = new Detection(map);
 		detection.detecter();
-		detectedDroneVision(map);
+		timer.start();
+//		detectedDroneVision(map);
 		/**
 		 *  Le Objet Position dronePosition represente la position
 		 *  en haut a gouche de chaque vision du drone.
@@ -115,4 +117,14 @@ public class VisionManager {
         }
 //        map.setVisionDrone(visionElements);
     }
+	
+	private class TimerListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			detectedDroneVision(map);
+		}
+		
+	}
 }

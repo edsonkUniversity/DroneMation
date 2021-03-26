@@ -103,10 +103,10 @@ public class MainPanel extends JFrame implements Runnable {
 		public void keyPressed(KeyEvent event) {
 			switch (event.getKeyCode()) {
 			case KeyEvent.VK_UP:
-				ElementManager.moveForwardDrone(map);
+				ElementManager.moveUPDrone(map);
 				break;
 			case KeyEvent.VK_DOWN:
-				ElementManager.moveDownwardDrone(map);
+				ElementManager.moveDownDrone(map);
 				break;
 			case KeyEvent.VK_RIGHT:
 				ElementManager.moveRightDrone(map);

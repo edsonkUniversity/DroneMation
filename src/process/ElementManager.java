@@ -6,7 +6,7 @@ import data.*;
 
 public class ElementManager {
 
-	public static void moveRightDrone(Map map) {
+	public static void moveDownDrone(Map map) {
 		int droneColumn = map.getDrone().getPosition().getColumn();
 		if (droneColumn < GuiData.WINDOW_WIDTH - 1) {
 			droneColumn += SimulationParameters.NUMBER_OF_WIDTH_SQUARES;
@@ -14,7 +14,7 @@ public class ElementManager {
 		}
 	}
 
-	public static void moveLeftDrone(Map map) {
+	public static void moveUPDrone(Map map) {
 		int droneColumn = map.getDrone().getPosition().getColumn();
 		if (map.getDrone().getPosition().getColumn() > 0) {
 			droneColumn -= SimulationParameters.NUMBER_OF_WIDTH_SQUARES;
@@ -25,7 +25,7 @@ public class ElementManager {
 		}
 	}
 
-	public static void moveForwardDrone(Map map) {
+	public static void moveLeftDrone(Map map) {
 		int droneLine = map.getDrone().getPosition().getLine();
 		if (map.getDrone().getPosition().getLine() > 0) {
 			droneLine -= SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;
@@ -36,7 +36,7 @@ public class ElementManager {
 		}
 	}
 
-	public static void moveDownwardDrone(Map map) {
+	public static void moveRightDrone(Map map) {
 		int droneLine = map.getDrone().getPosition().getLine();
 		if (map.getDrone().getPosition().getLine() < GuiData.WINDOW_HEIGHT - 1) {
 			droneLine += SimulationParameters.NUMBER_OF_HEIGHT_SQUARES;
