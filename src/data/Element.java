@@ -44,4 +44,10 @@ public abstract class Element  {
 			return this.getColor().equals(check.getColor());
 	}
 
+	@Override
+	public String toString() {
+		return "Element{" +
+				"position=" + position +
+				'}';
+	}
 }

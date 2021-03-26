@@ -78,8 +78,8 @@ public class PaintStrategy {
             }
             
         }
-        forest= map.getDrone().getDetectForest().get(cornerPosition);
-        int i=0;
+        //forest= map.getDrone().getDetectForest().get(cornerPosition);
+      //  int i=0;
 //        while(forest[i]!=null) {
 //            key=forest[0].getForest().get(1).getPosition();
 //            i++;

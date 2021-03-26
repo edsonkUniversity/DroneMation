@@ -56,10 +56,14 @@ public class VisionManager {
 	 */
 	public void checkIfDetected(Map map) {
 		Position dronePosition = drone.getPosition();
+		droneVision(map);
+		Detection detection = new Detection(map);
+		detection.detecter();
+		detectedDroneVision(map);
 		/**
 		 *  Le Objet Position dronePosition represente la position
 		 *  en haut a gouche de chaque vision du drone.
-		 */
+		 
 		if(drone.getDetectForest().containsKey(dronePosition)) {
 			detectedDroneVision(map);
 		}else {
@@ -76,8 +80,8 @@ public class VisionManager {
 			
 			//a faire detection
 			//1-list de arbres stocké (is
-
-		}
+*/
+		
 	}
 	
 	/**
@@ -101,7 +105,7 @@ public class VisionManager {
                     if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].getColor().equals(Color.green)) {
                         Tree tree = (Tree) map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];
 //                        visionElements[indexLine][indexColumn];
-                        if(!tree.isContour()) {
+                        if(tree.isContour()) {
 //                            visionElements[indexLine][indexColumn]
                             map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].setColor(new Color(74, 100, 50));
                         }
