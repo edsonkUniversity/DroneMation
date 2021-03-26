@@ -1,6 +1,10 @@
 package process;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 import config.SimulationParameters;
 import data.Drone;
@@ -60,6 +64,16 @@ public class VisionManager {
 			detectedDroneVision(map);
 		}else {
 			droneVision(map);
+			Timer timer = new Timer(500, new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					detectedDroneVision(map);
+				}
+			});
+			timer.start();
+			
 			//a faire detection
 			//1-list de arbres stocké (is
 
@@ -72,22 +86,29 @@ public class VisionManager {
 	 * @param map
 	 */
 	public void detectedDroneVision(Map map) {
-		int droneColumn = drone.getPosition().getColumn();
-		int droneLine = drone.getPosition().getLine();
+        int droneColumn = drone.getPosition().getColumn();
+        int droneLine = drone.getPosition().getLine();
 
-		Element[][] visionElements = new Element[SimulationParameters.NUMBER_OF_HEIGHT_SQUARES][SimulationParameters.NUMBER_OF_WIDTH_SQUARES];
-		for (int indexLine = 0; indexLine < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; indexLine++) {
-			for (int indexColumn = 0; indexColumn < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; indexColumn++) {
-				//ATTENTION, THE ORDER WAS WRONG!
-				visionElements[indexLine][indexColumn] = map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];//THIS LINE MUST BE CALLED BEFORE
-				if (visionElements[indexLine][indexColumn].getColor().equals(Color.green)) {
-					Tree tree = (Tree) visionElements[indexLine][indexColumn];
-					if(tree.isContour()) {
-						visionElements[indexLine][indexColumn].setColor(new Color(74, 100, 50));
-					}
-				}
-			}
-		}
-		map.setVisionDrone(visionElements);		
-	}
+        //Element[][] visionElements = map.getVisionDrone();
+
+
+        for (int indexLine = 0; indexLine < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; indexLine++) {
+            for (int indexColumn = 0; indexColumn < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; indexColumn++) {
+
+                //ATTENTION, THE ORDER WAS WRONG!
+            //    visionElements[indexLine][indexColumn] = map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];//THIS LINE MUST BE CALLED BEFORE
+                if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn]!=null){
+                    if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].getColor().equals(Color.green)) {
+                        Tree tree = (Tree) map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];
+//                        visionElements[indexLine][indexColumn];
+                        if(!tree.isContour()) {
+//                            visionElements[indexLine][indexColumn]
+                            map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].setColor(new Color(74, 100, 50));
+                        }
+                    }
+                }
+            }
+        }
+//        map.setVisionDrone(visionElements);
+    }
 }
