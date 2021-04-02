@@ -60,30 +60,8 @@ public class VisionManager {
 		droneVision(map);
 		Detection detection = new Detection(map);
 		detection.detecter();
+		detection.detectedFire();
 		timer.start();
-//		detectedDroneVision(map);
-		/**
-		 *  Le Objet Position dronePosition represente la position
-		 *  en haut a gouche de chaque vision du drone.
-		 
-		if(drone.getDetectForest().containsKey(dronePosition)) {
-			detectedDroneVision(map);
-		}else {
-			droneVision(map);
-			Timer timer = new Timer(500, new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					detectedDroneVision(map);
-				}
-			});
-			timer.start();
-			
-			//a faire detection
-			//1-list de arbres stocké (is
-*/
-		
 	}
 	
 	/**
