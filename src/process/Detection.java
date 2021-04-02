@@ -43,30 +43,31 @@ public class Detection {
 		int line = tree.getPosition().getLine();
 		int column = tree.getPosition().getColumn();
 		Element[][] elementsInMap = map.getElementsInMap();
+
 		if (random == 0) {
 				if (elementsInMap[line+1][column]!= null) {
-					if (elementsInMap[line + 1][column].getColor().equals(Color.GREEN)) {
+					if (elementsInMap[line + 1][column].getColor().equals(Color.GREEN) || elementsInMap[line + 1][column].getColor().equals(new Color(74, 100, 50))) {
 						elementsInMap[line + 1][column].setColor(Color.RED);
 					}
 				}
 			}
 		if (random == 1) {
 				if (elementsInMap[line - 1][column] != null) {
-					if (elementsInMap[line - 1][column].getColor().equals(Color.GREEN)) {
+					if (elementsInMap[line - 1][column].getColor().equals(Color.GREEN) || elementsInMap[line - 1][column].getColor().equals(new Color(74, 100, 50))) {
 						elementsInMap[line - 1][column].setColor(Color.RED);
 					}
 				}
 			}
 		if (random == 2) {
 				if (elementsInMap[line][column + 1] != null) {
-					if (elementsInMap[line][column + 1].getColor().equals(Color.GREEN)) {
+					if (elementsInMap[line][column + 1].getColor().equals(Color.GREEN) || elementsInMap[line][column + 1].getColor().equals(new Color(74, 100, 50))) {
 						elementsInMap[line][column + 1].setColor(Color.RED);
 					}
 				}
 			}
 		if (random == 3) {
 				if (elementsInMap[line][column - 1] != null) {
-					if (elementsInMap[line][column - 1].getColor().equals(Color.GREEN)) {
+					if (elementsInMap[line][column - 1].getColor().equals(Color.GREEN) || elementsInMap[line][column - 1].getColor().equals(new Color(74, 100, 50))) {
 						elementsInMap[line][column - 1].setColor(Color.RED);
 					}
 				}
@@ -140,7 +141,6 @@ public class Detection {
 				for (Element elements2 : elements) {
 					if (elements2 != null) {
 						if (elements2.getColor().equals(Color.RED)) {
-
 							int random = getRandom(0, 20);
 							if (random < 3) {
 								openFire((Tree) elements2);
