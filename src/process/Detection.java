@@ -22,16 +22,54 @@ public  class Detection {
                 if (area[indexLine][indexColumn]!=null){
                     if (!area[indexLine][indexColumn].isVisit()){
                         if (area[indexLine][indexColumn].getColor().equals(Color.GREEN)) {
-
                             dealTree((Tree)area[indexLine][indexColumn],indexLine,indexColumn);
+                            map.getDrone().addForest((Tree)area[indexLine][indexColumn]);
                         }else {
-                            //area[indexLine][indexColumn].setVisit();
+                            area[indexLine][indexColumn].setVisit();
                         }
+                    }
+                    if (area[indexLine][indexColumn].getColor().equals(Color.RED)){
+                        openFire((Tree)area[indexLine][indexColumn],indexLine,indexColumn);
                     }
                 }
             }
         }
     }
+
+
+    private void openFire(Tree tree, int localLine, int localColumn) {
+        if (localLine<SimulationParameters.NUMBER_OF_HEIGHT_SQUARES-1){
+            if (area[localLine+1][localColumn]!=null){
+                if (area[localLine+1][localColumn].getColor().equals(Color.GREEN)) {
+                    area[localLine + 1][localColumn].setColor(Color.RED);
+                }
+            }
+        }
+        if (localLine>1){
+            if (area[localLine-1][localColumn]!=null){
+                if (area[localLine-1][localColumn].getColor().equals(Color.GREEN)) {
+                    area[localLine-1][localColumn].setColor(Color.RED);
+                }
+            }
+        }
+        if (localColumn<SimulationParameters.NUMBER_OF_WIDTH_SQUARES-1){
+            if (area[localLine][localColumn+1]!=null){
+                if (area[localLine][localColumn+1].getColor().equals(Color.GREEN)) {
+                    area[localLine][localColumn].setColor(Color.RED);
+                }
+            }
+        }
+        if (localColumn>1){
+            if (area[localLine][localColumn-1]!=null){
+                if (area[localLine][localColumn-1].getColor().equals(Color.GREEN)) {
+                    area[localLine][localColumn-1].setColor(Color.RED);
+                }
+            }
+        }
+        System.out.println(tree.toString()+tree.isIsfire());
+    }
+
+
 
     private void dealTree(Tree tree, int localLine, int localColumn) {
         tree.setVisit();

@@ -14,4 +14,10 @@ public class Forest {
 		this.forest = forest;
 	}
 
+	public void addForest(Tree headOfForest){
+		forest.add(headOfForest);
+	}
+	public int getForestNumber(){
+		return forest.size();
+	}
 }
