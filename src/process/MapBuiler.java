@@ -2,6 +2,7 @@ package process;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import config.GuiData;
 import config.SimulationParameters;
@@ -10,6 +11,7 @@ import data.Element;
 import data.Fire;
 import data.House;
 import data.Map;
+import data.Normal;
 import data.Position;
 import data.Tree;
 
@@ -21,6 +23,7 @@ public class MapBuiler {
 	private ArrayList<Tree> treesList;
 	private ArrayList<Fire> firesList;
 	private ArrayList<House> housesList;
+	private ArrayList<Normal> normalList;
 	private Map resultMap;
 	private Drone drone;
 
@@ -37,14 +40,16 @@ public class MapBuiler {
 		this.firesList = new ArrayList<Fire>();
 		this.housesList = new ArrayList<House>();
 		this.treesList = new ArrayList<Tree>();
+		this.normalList = new ArrayList<Normal>();
+
 		this.drone = new Drone(new Position(0, 0));
 		this.resultMap = new Map(SquaresWhithCode, "Carte_Proto", drone);
 	}
 
 	public Map getMap() {
-
-		createElementInMap();
-		mapSmoothing();
+		newCreation();
+		//createElementInMap();
+		//mapSmoothing();
 		resultMap.setHouses(housesList);
 		resultMap.setTrees(treesList);
 		resultMap.setFires(firesList);
@@ -66,7 +71,12 @@ public class MapBuiler {
 		elements[line][column] = tree;
 
 	}
-
+public void addNormal(int line, int column) {
+	Position position = new Position(line, column);
+	Normal normal = new Normal(position);
+	normalList.add(normal);
+	elements[line][column] = normal;
+}
 	/**
 	 * Ajoute les feux sur la carte
 	 * 
@@ -74,15 +84,14 @@ public class MapBuiler {
 	 * @param column
 	 */
 	public void addFire(int line, int column) {
-		int firecode = getRandom(0, 100);
-		if (firecode <= 2) {
-			Position position = new Position(line, column);
-			Fire fire = new Fire(position);
-			firesList.add(fire);
-			elements[line][column] = fire;
+		Position position = new Position(line, column);
+		Tree tree = new Tree(position);
+		treesList.remove(tree);
+		tree.setIsfire(true);
+		treesList.add(tree);
+		elements[line][column] = tree;
 		}
 
-	}
 
 	/**
 	 * Ajoute les Maisons sur la carte
@@ -106,9 +115,9 @@ public class MapBuiler {
 		for (int indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (int indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				elementCode = getRandom(0, 10);
-				// 4 null  + 3 forêt + 2  maison +1 feu 
+				// 4 null + 3 forï¿½t + 2 maison +1 feu
 				switch (elementCode) {
-				case 0:  {
+				case 0: {
 					for (int indexForest = 0; indexForest < 3; indexForest++) {
 						int newLine = indexLine + indexForest;
 						int newColumn = indexColumn + indexForest;
@@ -120,7 +129,7 @@ public class MapBuiler {
 					indexColumn += 10;
 					break;
 				}
-				
+
 				case 1: {
 					addHouses(indexLine, indexColumn);
 					break;
@@ -147,7 +156,7 @@ public class MapBuiler {
 		Color elementMap;
 		int y;
 		int x;
-		// maison 
+		// maison
 		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				if (elements[indexLine][indexColumn] != null) {
@@ -263,9 +272,8 @@ public class MapBuiler {
 				}
 			}
 		}
-		
-		
-		// foret 
+
+		// foret
 		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				if (elements[indexLine][indexColumn] != null) {
@@ -333,8 +341,8 @@ public class MapBuiler {
 				}
 			}
 		}
-		
-		// feu 
+
+		// feu
 		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
 			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
 				if (elements[indexLine][indexColumn] != null) {
@@ -367,8 +375,8 @@ public class MapBuiler {
 							}
 
 							if (inRange(indexLine) && inRange(indexColumn)
-									&& isNotNull(elements[indexLine+1][indexColumn])) {
-								if (elements[indexLine+1][indexColumn ].equals(GuiData.TREE_COLOR)) {
+									&& isNotNull(elements[indexLine + 1][indexColumn])) {
+								if (elements[indexLine + 1][indexColumn].equals(GuiData.TREE_COLOR)) {
 									tree++;
 								}
 							}
@@ -381,63 +389,188 @@ public class MapBuiler {
 				}
 			}
 		}
-		// maison 
-				for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
-					for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
-						if (elements[indexLine][indexColumn] != null) {
-							elementMap = elements[indexLine][indexColumn].getColor();
-							y = elements[indexLine][indexColumn].getPosition().getColumn();
-							x = elements[indexLine][indexColumn].getPosition().getLine();
-							if (elementMap.equals(GuiData.HOUSE_COLOR)) {
-								// if the house is on edge of the map we delete it
-								if (x == SimulationParameters.MAP_HEIGHT || y == SimulationParameters.MAP_WIDTH || x == 0
-										|| y == 0) {
-									housesList.remove(elements[indexLine][indexColumn]);
-									elements[indexLine][indexColumn] = null;
-								} else {
-									// if the house is in middle of tree he became a tree
-									int tree = 0;
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine + 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine + 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine + 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine - 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (inRange(indexLine) && inRange(indexColumn)
-											&& elements[indexLine - 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
-										tree++;
-									}
-									if (tree >= 2) {
-										housesList.remove(elements[indexLine][indexColumn]);
-										elements[indexLine][indexColumn] = null;
-									}
-								}
+		// maison
+		for (indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
+			for (indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
+				if (elements[indexLine][indexColumn] != null) {
+					elementMap = elements[indexLine][indexColumn].getColor();
+					y = elements[indexLine][indexColumn].getPosition().getColumn();
+					x = elements[indexLine][indexColumn].getPosition().getLine();
+					if (elementMap.equals(GuiData.HOUSE_COLOR)) {
+						// if the house is on edge of the map we delete it
+						if (x == SimulationParameters.MAP_HEIGHT || y == SimulationParameters.MAP_WIDTH || x == 0
+								|| y == 0) {
+							housesList.remove(elements[indexLine][indexColumn]);
+							elements[indexLine][indexColumn] = null;
+						} else {
+							// if the house is in middle of tree he became a tree
+							int tree = 0;
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine + 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine + 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine + 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine - 1][indexColumn + 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine - 1][indexColumn].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (inRange(indexLine) && inRange(indexColumn)
+									&& elements[indexLine - 1][indexColumn - 1].getColor().equals(GuiData.TREE_COLOR)) {
+								tree++;
+							}
+							if (tree >= 2) {
+								housesList.remove(elements[indexLine][indexColumn]);
+								elements[indexLine][indexColumn] = null;
 							}
 						}
 					}
 				}
+			}
+		}
+	}
+
+	public void newCreation() {
+		double[][] noiseMap1 = new double[SimulationParameters.MAP_HEIGHT + 5][SimulationParameters.MAP_WIDTH + 5];
+		double[][] noiseMap2 = new double[SimulationParameters.MAP_HEIGHT + 5][SimulationParameters.MAP_WIDTH + 5];
+
+		int[][] finalNoiseMap = new int[SimulationParameters.MAP_HEIGHT][SimulationParameters.MAP_WIDTH];
+
+		// Filling the first noiseMap
+		for (int indexLine = 0; indexLine < (SimulationParameters.MAP_HEIGHT + 4); indexLine++) {
+			for (int indexColumn = 0; indexColumn < (SimulationParameters.MAP_WIDTH + 4); indexColumn++) {
+				// random choice
+				int noiseChoice = getRandom(0, 2);
+				// value in [0, 0.7, 1]
+				double noiseValue;
+				switch (noiseChoice) {
+				case 0:
+					noiseValue = (double) 0;
+					break;
+				case 1:
+					noiseValue = (double) 0.5;
+					break;
+				default:
+					noiseValue = (double) 1;
+				}
+				noiseMap1[indexLine][indexColumn] = noiseValue;
+
+			}
+		}
+		// System.out.println(Arrays.deepToString(noiseMap1));
+
+		double fusedValue;
+
+		// First fusing in the other float[][]
+		for (int indexLine = 0; indexLine < (SimulationParameters.MAP_HEIGHT + 4); indexLine++) {
+			for (int indexColumn = 0; indexColumn < (SimulationParameters.MAP_WIDTH + 4); indexColumn++) {
+				fusedValue = 0.24 * noiseMap1[indexLine][indexColumn] + 0.06 * noiseMap1[indexLine + 1][indexColumn]
+						+ 0.56 * noiseMap1[indexLine][indexColumn + 1]
+						+ 0.14 * noiseMap1[indexLine + 1][indexColumn + 1];
+				noiseMap2[indexLine][indexColumn] = fusedValue;
+
+			}
+		}
+
+		// Second fusing in the first float[][]
+		for (int indexLine = 0; indexLine < (SimulationParameters.MAP_HEIGHT + 4); indexLine++) {
+			for (int indexColumn = 0; indexColumn < (SimulationParameters.MAP_WIDTH + 4); indexColumn++) {
+				fusedValue = 0.24 * noiseMap2[indexLine][indexColumn] + 0.06 * noiseMap2[indexLine + 1][indexColumn]
+						+ 0.56 * noiseMap2[indexLine][indexColumn + 1]
+						+ 0.14 * noiseMap2[indexLine + 1][indexColumn + 1];
+				noiseMap1[indexLine][indexColumn] = fusedValue;
+			}
+		}
+
+		// 3rd one, same as first
+		for (int indexLine = 0; indexLine < (SimulationParameters.MAP_HEIGHT + 4); indexLine++) {
+			for (int indexColumn = 0; indexColumn < (SimulationParameters.MAP_WIDTH + 4); indexColumn++) {
+				fusedValue = 0.24 * noiseMap1[indexLine][indexColumn] + 0.06 * noiseMap1[indexLine + 1][indexColumn]
+						+ 0.56 * noiseMap1[indexLine][indexColumn + 1]
+						+ 0.14 * noiseMap1[indexLine + 1][indexColumn + 1];
+				noiseMap2[indexLine][indexColumn] = fusedValue;
+
+			}
+		}
+
+		// last one, same as second
+		for (int indexLine = 0; indexLine < (SimulationParameters.MAP_HEIGHT + 4); indexLine++) {
+			for (int indexColumn = 0; indexColumn < (SimulationParameters.MAP_WIDTH + 4); indexColumn++) {
+				fusedValue = 0.24 * noiseMap2[indexLine][indexColumn] + 0.06 * noiseMap2[indexLine + 1][indexColumn]
+						+ 0.56 * noiseMap2[indexLine][indexColumn + 1]
+						+ 0.14 * noiseMap2[indexLine + 1][indexColumn + 1];
+				noiseMap1[indexLine][indexColumn] = fusedValue;
+			}
+		}
+
+		// We now declare our threshold for the quantification
+		double threshold = 0.5;
+		int integerValue;
+
+		for (int indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
+			for (int indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
+				if (noiseMap1[indexLine][indexColumn] > threshold) {
+					integerValue = 1;
+				} else {
+					integerValue = 0;
+				}
+
+				if (integerValue == 0) {
+					if ((getRandom(0, 4) == 0)) {
+						integerValue = 2;
+					}
+				} else {
+					if (integerValue == 1) {
+						if (getRandom(0, 19) == 0) {
+							integerValue = 3;
+						}
+					}
+				}
+
+				finalNoiseMap[indexLine][indexColumn] = integerValue;
+
+				// System.out.println(Arrays.deepToString(finalNoiseMap));
+			}
+		}
+
+		for (int indexLine = 0; indexLine < SimulationParameters.MAP_HEIGHT; indexLine++) {
+			for (int indexColumn = 0; indexColumn < SimulationParameters.MAP_WIDTH; indexColumn++) {
+
+						if(finalNoiseMap[indexLine][indexColumn] == 0) {
+							addNormal(indexLine, indexColumn);
+							
+						} 
+						else if(finalNoiseMap[indexLine][indexColumn] == 1) {
+							addForest(indexLine, indexColumn);
+						}
+						else if (finalNoiseMap[indexLine][indexColumn]== 2) {
+							addHouses(indexLine, indexColumn);
+						}
+						else if(finalNoiseMap[indexLine][indexColumn]==3) {
+							addFire(indexLine, indexColumn);
+						}
+						
+			}
+		}
+		// System.out.println(Arrays.deepToString(finalNoiseMap));
 	}
 
 	public int[][] getFreeSquares() {
