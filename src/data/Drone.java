@@ -9,11 +9,8 @@ import static config.SimulationParameters.NUMBER_OF_WIDTH_SQUARES;
 public class Drone extends Element {
 	private int locationX;
 	private int locationY;
-	private int numberFireDetect=0;
-	
-
 	private Forest[][] detectionForest;
-	//private HashMap<Position, Forest[]> detectForest = new HashMap<Position, Forest[]>();
+	private int numberFireDetect=0;
 
 	public Drone(Position position) {
 		super(position, Color.CYAN);

@@ -61,7 +61,6 @@ public class PaintStrategy {
         VisionManager visionManager =  new VisionManager(map, map.getDrone());
 
         visionManager.checkIfDetected(map);
-
         Element[][] droneVision = map.getVisionDrone();
         cornerPosition= map.getDrone().getPosition();
         for (int line = 0; line < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; line++) {
@@ -102,11 +101,22 @@ public class PaintStrategy {
          nbForet++;
          return jFrame;
      }
-	 
-	 public void drawInformation(Map map, Graphics2D g2) {
-			g2.setColor(Color.white);
-			g2.fillRect(0, 439 , 925, 200);
+
+	public void drawInformation(Map map, Graphics2D g2) {
+		g2.setColor(Color.white);
+		g2.fillRect(0, 439 , 925, 200);
+			g2.setColor(Color.black);
 			int numberFireDetect = map.getDrone().getNumberFireDetect();
-	 }
+			String number = "Nombres de feux detecte: " +numberFireDetect;
+			g2.drawString(number, 5, 455);
+			drawString(g2,GuiData.FOREST_TEXT, 15, 465);
+			
+			
+			}
+	
+	public void drawString(Graphics2D g2, String text, int x, int y) {
+	    for (String line : text.split("\n"))
+	        g2.drawString(line, x, y += g2.getFontMetrics().getHeight());
+	}
 
 }

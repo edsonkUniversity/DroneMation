@@ -30,15 +30,7 @@ public class MainPanel extends JFrame implements Runnable {
 	public MainPanel(String title) {
 		super(title);
 		this.setPreferredSize(preferredSize);
-
-		/*
-		 * initialDroneVision = new Zone[5][5]; Drone drone = new Drone("Le Drone", 0,
-		 * 0, initialDroneVision); map = new Map("Carte Test", drone,
-		 * initialDroneVision);
-		 */
-
 		init();
-//		run();
 	}
 
 	private void init() {
@@ -50,7 +42,6 @@ public class MainPanel extends JFrame implements Runnable {
 		MapBuiler newMapBuiler=  new MapBuiler();	
 		map =newMapBuiler.getMap();
 		dashboard= new GuiMap(map);
-	//	dashboard.repaint(getGraphics());
 		dashboard.setPreferredSize(preferredSize);
 		contentPane.add(dashboard, BorderLayout.CENTER);
 		contentPane.add(textField, BorderLayout.WEST);		
@@ -59,13 +50,6 @@ public class MainPanel extends JFrame implements Runnable {
 		setVisible(true);
 		setPreferredSize(preferredSize);
 		setResizable(false);
-		
-		JFrame treePopUp = createPopUp(GuiData.TREE_TEXT_TITLE, GuiData.TREE_TEXT);
-		treePopUp.setVisible(true);
-		JFrame forestPopUp = createPopUp(GuiData.FOREST_TEXT_TITLE, GuiData.FOREST_TEXT);
-		forestPopUp.setVisible(true);
-		JFrame forestFirePopUp = createPopUp(GuiData.FOREST_FIRE_TEXT_TITLE, GuiData.FOREST_FIRE_TEXT);
-		forestFirePopUp.setVisible(true);
 	}
 	
 	public JFrame createPopUp(String titleText, String textPopUp) {
@@ -92,7 +76,6 @@ public class MainPanel extends JFrame implements Runnable {
 			}
 
 			dashboard.repaint();
-//			System.out.println(map.getElementsInMap()[0][0].getColor());
 
 		}
 	}

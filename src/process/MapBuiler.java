@@ -84,23 +84,12 @@ public void addNormal(int line, int column) {
 	 * @param column
 	 */
 	public void addFire(int line, int column) {
-<<<<<<< HEAD
-		int firecode = getRandom(0, 100);
-		if (firecode <= 2) {
-			Position position = new Position(line, column);
-			Tree fireTree = new Tree(position);
-			fireTree.setIsfire(true);
-			fireTree.setColor(Color.red);
-			treesList.add(fireTree);
-			elements[line][column] = fireTree;
-=======
 		Position position = new Position(line, column);
 		Tree tree = new Tree(position);
 		treesList.remove(tree);
 		tree.setIsfire(true);
 		treesList.add(tree);
 		elements[line][column] = tree;
->>>>>>> branch 'master' of https://github.com/edsonkUniversity/DroneMation.git
 		}
 
 

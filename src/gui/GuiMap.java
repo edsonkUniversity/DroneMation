@@ -1,36 +1,33 @@
 package gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
-import data.Drone;
 import data.Map;
-import process.ElementManager;
 
 public class GuiMap extends JPanel {
 	
 	private Map map;
-	private ElementManager manager;
 	private PaintStrategy paintStrategy = new PaintStrategy();
 
 	public GuiMap(Map map) {
 		this.map = map;
-		this.manager = manager;
+		setLayout(new BorderLayout());
 
 	}
-	
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		super.paintComponent(g);
 		paintStrategy.miniMapPaint(map, g2);
 		paintStrategy.paint(map, g);
 		paintStrategy.drawInformation(map,g2);
-		
 	}
 	
-	// peint the changement of trun on the map 
-
+	
+	
 }

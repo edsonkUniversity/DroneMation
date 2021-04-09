@@ -28,7 +28,6 @@ public class Detection {
 								area[indexLine][indexColumn].setColor(Color.red);
 							}
 							dealTree((Tree) area[indexLine][indexColumn], indexLine, indexColumn);
-//                            map.getDrone().addForest((Tree)area[indexLine][indexColumn]);
 						} else {
 							area[indexLine][indexColumn].setVisit();
 						}
@@ -87,7 +86,7 @@ public class Detection {
 					dealTree((Tree) area[localLine + 1][localColumn], localLine + 1, localColumn);
 				} else {
 					tree.setUpTree(false);
-					area[localLine + 1][localColumn].setVisit();
+//					area[localLine + 1][localColumn].setVisit();
 				}
 			}
 		}
@@ -100,7 +99,7 @@ public class Detection {
 					dealTree((Tree) area[localLine - 1][localColumn], localLine - 1, localColumn);
 				} else {
 					tree.setDownTree(false);
-					area[localLine - 1][localColumn].setVisit();
+//					area[localLine - 1][localColumn].setVisit();
 				}
 			}
 		}
@@ -113,7 +112,7 @@ public class Detection {
 					dealTree((Tree) area[localLine][localColumn + 1], localLine, localColumn + 1);
 				} else {
 					tree.setRightTree(false);
-					area[localLine][localColumn + 1].setVisit();
+//					area[localLine][localColumn + 1].setVisit();
 				}
 			}
 		}
@@ -126,7 +125,7 @@ public class Detection {
 					dealTree((Tree) area[localLine][localColumn - 1], localLine, localColumn - 1);
 				} else {
 					tree.setLeftTree(false);
-					area[localLine][localColumn - 1].setVisit();
+//					area[localLine][localColumn - 1].setVisit();
 				}
 			}
 		}
@@ -141,7 +140,7 @@ public class Detection {
 				for (Element elements2 : elements) {
 					if (elements2 != null) {
 						if (elements2.getColor().equals(Color.RED)) {
-							int random = getRandom(0, 20);
+							int random = getRandom(0, 30);
 							if (random < 3) {
 								openFire((Tree) elements2);
 							} else if (random == 10) {

@@ -25,9 +25,9 @@ public class GuiData {
 		+ "moins un voisin qui sera un pixel non détecté comme un arbre.";
 	public static String FOREST_TEXT_TITLE = "Forêt détectée !";
 	public static String FOREST_TEXT = "Une forêt est déterminée par un ensemble d'arbres. Une fois qu’un arbre est ajouté "
-		+ "à la forêt, on vérifie également ses voisins et on les ajoute ou non à la forêt. On vérifie toujours qu’un "
-		+ "arbre n’est pas déjà dans une forêt avant de l’ajouter à une nouvelle et on prévoit la possible fusion de forêts. "
-		+ "Ainsi, on obtient très vite la totalité des pixels de la forêt et ses bords sans tester plusieurs fois les mêmes. "
+		+ "à la forêt, on vérifie également ses voisins et on les ajoute ou non à la forêt.\nOn vérifie toujours qu’un "
+		+ "arbre n’est pas déjà dans une forêt avant de l’ajouter à une nouvelle et on prévoit la possible fusion de forêts.\n"
+		+ "Ainsi, on obtient très vite la totalité des pixels de la forêt et ses bords sans tester plusieurs fois les mêmes.\n"
 		+ "Il suffit alors de marquer les contours de cette forêt (c’est-à-dire tous les pixels détectés comme arbres de contour) "
 		+ "et on peut alors afficher cet élément sur notre carte.";
 	public static String FOREST_FIRE_TEXT_TITLE = "Feu de forêt détecté !";
