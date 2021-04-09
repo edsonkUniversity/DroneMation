@@ -27,6 +27,7 @@ public class GuiMap extends JPanel {
 		super.paintComponent(g);
 		paintStrategy.miniMapPaint(map, g2);
 		paintStrategy.paint(map, g);
+		paintStrategy.drawInformation(map,g2);
 		
 	}
 	

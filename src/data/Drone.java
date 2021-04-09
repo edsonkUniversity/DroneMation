@@ -9,6 +9,7 @@ import static config.SimulationParameters.NUMBER_OF_WIDTH_SQUARES;
 public class Drone extends Element {
 	private int locationX;
 	private int locationY;
+	private int numberFireDetect=0;
 	
 
 	private Forest[][] detectionForest;
@@ -29,6 +30,14 @@ public class Drone extends Element {
 	}
 	public void addForest (Tree head){
 		detectionForest[locationX][locationX].addForest(head);
+	}
+
+	public int getNumberFireDetect() {
+		return numberFireDetect;
+	}
+
+	public void setNumberFireDetect(int numberFireDetect) {
+		this.numberFireDetect = numberFireDetect;
 	}
 
 

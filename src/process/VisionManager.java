@@ -70,30 +70,27 @@ public class VisionManager {
 	 * @param map
 	 */
 	public void detectedDroneVision(Map map) {
-        int droneColumn = drone.getPosition().getColumn();
-        int droneLine = drone.getPosition().getLine();
+		  int droneColumn = drone.getPosition().getColumn();
+	        int droneLine = drone.getPosition().getLine();
+	        int numberFireDetect = 0;
 
-        //Element[][] visionElements = map.getVisionDrone();
+	        for (int indexLine = 0; indexLine < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; indexLine++) {
+	            for (int indexColumn = 0; indexColumn < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; indexColumn++) {
 
-
-        for (int indexLine = 0; indexLine < SimulationParameters.NUMBER_OF_HEIGHT_SQUARES; indexLine++) {
-            for (int indexColumn = 0; indexColumn < SimulationParameters.NUMBER_OF_WIDTH_SQUARES; indexColumn++) {
-
-                //ATTENTION, THE ORDER WAS WRONG!
-            //    visionElements[indexLine][indexColumn] = map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];//THIS LINE MUST BE CALLED BEFORE
-                if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn]!=null){
-                    if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].getColor().equals(Color.green)) {
-                        Tree tree = (Tree) map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];
-//                        visionElements[indexLine][indexColumn];
-                        if(tree.isContour()) {
-//                            visionElements[indexLine][indexColumn]
-                            map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].setColor(new Color(74, 100, 50));
-                        }
-                    }
-                }
-            }
-        }
-//        map.setVisionDrone(visionElements);
+	                if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn]!=null){
+	                    if (map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].getColor().equals(Color.green)) {
+	                        Tree tree = (Tree) map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn];
+	                        if(tree.isContour()) {
+	                            map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].setColor(new Color(74, 100, 50));
+	                        }
+	                    }
+	                    else if(map.getElementsInMap()[droneLine+indexLine][droneColumn+indexColumn].getColor().equals(Color.RED)) {
+	                    		numberFireDetect++;
+	                    }
+	                }
+	            }
+	        }
+	        drone.setNumberFireDetect(numberFireDetect);
     }
 	
 	private class TimerListener implements ActionListener{

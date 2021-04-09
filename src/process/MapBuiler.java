@@ -77,9 +77,11 @@ public class MapBuiler {
 		int firecode = getRandom(0, 100);
 		if (firecode <= 2) {
 			Position position = new Position(line, column);
-			Fire fire = new Fire(position);
-			firesList.add(fire);
-			elements[line][column] = fire;
+			Tree fireTree = new Tree(position);
+			fireTree.setIsfire(true);
+			fireTree.setColor(Color.red);
+			treesList.add(fireTree);
+			elements[line][column] = fireTree;
 		}
 
 	}
